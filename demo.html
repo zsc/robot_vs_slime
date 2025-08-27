@@ -217,6 +217,57 @@
             50% { box-shadow: 0 0 30px #dbeafe; }
         }
         
+        .collector-unit {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .collector-unit::before {
+            content: '';
+            width: 70%;
+            height: 70%;
+            background: linear-gradient(45deg, 
+                #d97706 0%, #f59e0b 25%, 
+                #fbbf24 50%, #f59e0b 75%, 
+                #d97706 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 20px #fbbf24;
+            animation: rotate 10s linear infinite;
+        }
+        
+        .collector-unit::after {
+            content: '☀';
+            position: absolute;
+            font-size: 24px;
+            color: #fef3c7;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes sunBurst {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) translateY(-30px);
+                opacity: 0;
+            }
+        }
+        
         /* 敌人样式 */
         .enemy {
             position: absolute;
@@ -354,6 +405,13 @@
             transform: translateY(-5px);
             border-color: #22c55e;
             box-shadow: 0 5px 20px rgba(34, 197, 94, 0.3);
+        }
+        
+        .unit-card.selected {
+            transform: translateY(-5px);
+            border-color: #fbbf24;
+            box-shadow: 0 5px 20px rgba(251, 191, 36, 0.5);
+            background: #4a5568;
         }
         
         .unit-card.disabled {
@@ -857,19 +915,21 @@
         // 设置事件监听器
         function setupEventListeners() {
             document.querySelectorAll('.unit-card').forEach(card => {
-                card.onclick = () => selectUnit(card.dataset.unit);
+                card.onclick = () => selectUnit(card.dataset.unit, card);
             });
         }
         
         // 选择单位
-        function selectUnit(unitType) {
+        function selectUnit(unitType, cardElement) {
             const cost = unitTypes[unitType].cost;
             if (gameState.sunEnergy >= cost) {
                 gameState.selectedUnit = unitType;
                 document.querySelectorAll('.unit-card').forEach(card => {
                     card.classList.remove('selected');
                 });
-                event.currentTarget.classList.add('selected');
+                if (cardElement) {
+                    cardElement.classList.add('selected');
+                }
             }
         }
         
@@ -1218,8 +1278,50 @@
                 if (!gameState.isPaused && !gameState.isGameOver && gameState.units.includes(unit)) {
                     gameState.sunEnergy += unitTypes.collector.sunProduction;
                     updateHUD();
+                    
+                    // 创建生产动画效果
+                    createSunProductionEffect(unit);
                 }
             }, unitTypes.collector.productionInterval / gameState.gameSpeed);
+        }
+        
+        // 创建太阳能生产效果
+        function createSunProductionEffect(unit) {
+            const cellWidth = window.innerWidth / 9;
+            const cellHeight = window.innerHeight * 0.5 / 5;
+            const x = unit.col * cellWidth + cellWidth / 2;
+            const y = window.innerHeight * 0.5 + unit.row * cellHeight + cellHeight / 2;
+            
+            const sunBurst = document.createElement('div');
+            sunBurst.style.position = 'absolute';
+            sunBurst.style.left = x + 'px';
+            sunBurst.style.top = y + 'px';
+            sunBurst.style.width = '40px';
+            sunBurst.style.height = '40px';
+            sunBurst.style.marginLeft = '-20px';
+            sunBurst.style.marginTop = '-20px';
+            sunBurst.style.background = 'radial-gradient(circle, #fef3c7, #fbbf24)';
+            sunBurst.style.borderRadius = '50%';
+            sunBurst.style.pointerEvents = 'none';
+            sunBurst.style.zIndex = '25';
+            sunBurst.style.animation = 'sunBurst 1s ease-out forwards';
+            
+            // 添加 +25 文字
+            const text = document.createElement('div');
+            text.style.position = 'absolute';
+            text.style.left = '50%';
+            text.style.top = '50%';
+            text.style.transform = 'translate(-50%, -50%)';
+            text.style.color = '#fbbf24';
+            text.style.fontWeight = 'bold';
+            text.style.fontSize = '16px';
+            text.style.textShadow = '0 0 5px rgba(0,0,0,0.5)';
+            text.textContent = '+25';
+            sunBurst.appendChild(text);
+            
+            document.getElementById('gameBoard').appendChild(sunBurst);
+            
+            setTimeout(() => sunBurst.remove(), 1000);
         }
         
         // 更新HUD
