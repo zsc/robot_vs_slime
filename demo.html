@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机械军团大战史莱姆 - MVP Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            overflow: hidden;
+            user-select: none;
+        }
+        
+        #gameContainer {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* HUD样式 */
+        #hud {
+            height: 80px;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 2px solid #475569;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+        }
+        
+        .hud-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .resource-display {
+            background: #334155;
+            border-radius: 10px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #475569;
+        }
+        
+        .sun-icon {
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, #fbbf24, #f59e0b);
+            border-radius: 50%;
+            box-shadow: 0 0 20px #fbbf24;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .resource-value {
+            color: #fbbf24;
+            font-size: 24px;
+            font-weight: bold;
+            min-width: 80px;
+        }
+        
+        .wave-info {
+            background: #334155;
+            border-radius: 10px;
+            padding: 10px 20px;
+            color: #f1f5f9;
+            border: 1px solid #475569;
+        }
+        
+        .health-display {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .health-heart {
+            width: 30px;
+            height: 30px;
+            background: #ef4444;
+            clip-path: path('M15,5 C10,0 0,0 0,8 C0,16 15,28 15,28 C15,28 30,16 30,8 C30,0 20,0 15,5 Z');
+        }
+        
+        .health-heart.empty {
+            background: #6b7280;
+        }
+        
+        /* 游戏区域 */
+        #gameArea {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #gameBoard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: linear-gradient(180deg, #87ceeb 0%, #87ceeb 50%, #4ade80 50%, #22c55e 100%);
+        }
+        
+        .game-grid {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 50%;
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 2px;
+            padding: 10px;
+        }
+        
+        .grid-cell {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px dashed rgba(22, 163, 74, 0.3);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .grid-cell:hover {
+            background: rgba(34, 197, 94, 0.3);
+            border-color: #16a34a;
+        }
+        
+        .grid-cell.occupied {
+            cursor: not-allowed;
+        }
+        
+        /* 单位样式 */
+        .unit {
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            margin: 5%;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .tank-unit {
+            background: linear-gradient(135deg, #4a5568, #2d3748);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        .tank-unit::before {
+            content: '';
+            width: 60%;
+            height: 40%;
+            background: #64748b;
+            border-radius: 50%;
+        }
+        
+        .tank-unit::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 10%;
+            background: #1e293b;
+            right: -20%;
+        }
+        
+        .artillery-unit {
+            background: linear-gradient(135deg, #9f7aea, #6b46c1);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        .artillery-unit::before {
+            content: '';
+            width: 70%;
+            height: 15%;
+            background: #4c1d95;
+        }
+        
+        .laser-unit {
+            background: linear-gradient(135deg, #60a5fa, #3730a3);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        .laser-unit::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #dbeafe, #60a5fa, #1e40af);
+            border-radius: 50%;
+            animation: glow 1s infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 10px #60a5fa; }
+            50% { box-shadow: 0 0 30px #dbeafe; }
+        }
+        
+        /* 敌人样式 */
+        .enemy {
+            position: absolute;
+            transition: left 0.1s linear;
+            z-index: 15;
+        }
+        
+        .slime {
+            width: 60px;
+            height: 60px;
+            border-radius: 50% 50% 45% 45%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: bounce 1s infinite;
+        }
+        
+        .slime-fire {
+            background: radial-gradient(circle, #fbbf24, #f59e0b, #dc2626);
+            box-shadow: 0 0 20px #dc2626;
+        }
+        
+        .slime-water {
+            background: radial-gradient(circle, #7dd3fc, #0ea5e9, #0369a1);
+            box-shadow: 0 0 20px #0ea5e9;
+        }
+        
+        .slime-thunder {
+            background: radial-gradient(circle, #e0e7ff, #a78bfa, #7c3aed);
+            box-shadow: 0 0 20px #7c3aed;
+        }
+        
+        .slime-ice {
+            background: radial-gradient(circle, #e0f2fe, #7dd3fc, #0891b2);
+            box-shadow: 0 0 20px #0891b2;
+        }
+        
+        .slime-grass {
+            background: radial-gradient(circle, #86efac, #22c55e, #15803d);
+            box-shadow: 0 0 20px #22c55e;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .slime-eyes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .slime-eye {
+            width: 8px;
+            height: 12px;
+            background: #7c3aed;
+            border-radius: 50%;
+        }
+        
+        /* 攻击效果 */
+        .projectile {
+            position: absolute;
+            z-index: 20;
+        }
+        
+        .bullet {
+            width: 8px;
+            height: 8px;
+            background: #fbbf24;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fbbf24;
+        }
+        
+        .laser-beam {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #60a5fa, #dbeafe, #60a5fa, transparent);
+            box-shadow: 0 0 10px #60a5fa;
+        }
+        
+        .explosion {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #fef3c7, #fbbf24, #dc2626, transparent);
+            border-radius: 50%;
+            animation: explode 0.5s ease-out forwards;
+        }
+        
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        /* 单位选择面板 */
+        #unitPanel {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e293b;
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            border: 2px solid #334155;
+            z-index: 50;
+        }
+        
+        .unit-card {
+            width: 100px;
+            height: 120px;
+            background: #334155;
+            border-radius: 10px;
+            border: 2px solid #475569;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            padding: 10px;
+        }
+        
+        .unit-card:hover {
+            transform: translateY(-5px);
+            border-color: #22c55e;
+            box-shadow: 0 5px 20px rgba(34, 197, 94, 0.3);
+        }
+        
+        .unit-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .unit-card.disabled:hover {
+            transform: none;
+            border-color: #475569;
+            box-shadow: none;
+        }
+        
+        .unit-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+        }
+        
+        .unit-name {
+            color: #f1f5f9;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .unit-cost {
+            color: #fbbf24;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        /* 控制按钮 */
+        #gameControls {
+            position: absolute;
+            top: 100px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 50;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            background: #334155;
+            border: 2px solid #475569;
+            border-radius: 50%;
+            color: #f1f5f9;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-btn:hover {
+            background: #475569;
+            transform: scale(1.1);
+        }
+        
+        .control-btn.active {
+            background: #22c55e;
+            border-color: #16a34a;
+        }
+        
+        /* 游戏状态 */
+        #gameOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        #gameOverlay.show {
+            display: flex;
+        }
+        
+        .game-message {
+            background: #1e293b;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 3px solid #334155;
+        }
+        
+        .game-message h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .victory-message h2 {
+            color: #fbbf24;
+        }
+        
+        .defeat-message h2 {
+            color: #ef4444;
+        }
+        
+        .restart-btn {
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: #22c55e;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .restart-btn:hover {
+            background: #16a34a;
+            transform: scale(1.05);
+        }
+        
+        /* 太阳能生成 */
+        .sun-energy {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #fef3c7, #fbbf24);
+            border-radius: 50%;
+            cursor: pointer;
+            animation: float 15s linear;
+            z-index: 30;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+        
+        .sun-energy:hover {
+            transform: scale(1.2);
+        }
+        
+        /* 元素反应特效 */
+        .elemental-reaction {
+            position: absolute;
+            pointer-events: none;
+            z-index: 25;
+        }
+        
+        .vaporize-effect {
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.8), rgba(14, 165, 233, 0.6), transparent);
+            border-radius: 50%;
+            animation: vaporize 1s ease-out forwards;
+        }
+        
+        @keyframes vaporize {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        .freeze-effect {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #e0f2fe, #7dd3fc, #0891b2);
+            clip-path: polygon(50% 0%, 60% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 40% 35%);
+            animation: freeze 1s ease-out forwards;
+        }
+        
+        @keyframes freeze {
+            0% {
+                transform: scale(0) rotate(0);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.8) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 开始界面 */
+        #startScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #1e293b, #4c1d95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        #startScreen.hidden {
+            display: none;
+        }
+        
+        .game-title {
+            font-size: 60px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .title-mechanical {
+            color: #60a5fa;
+            text-shadow: 0 0 30px #3b82f6;
+        }
+        
+        .title-vs {
+            color: #fbbf24;
+            font-size: 40px;
+            margin: 0 20px;
+        }
+        
+        .title-slime {
+            color: #dc2626;
+            text-shadow: 0 0 30px #ef4444;
+        }
+        
+        .start-btn {
+            margin-top: 40px;
+            padding: 20px 60px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(34, 197, 94, 0.4);
+        }
+        
+        .start-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(34, 197, 94, 0.6);
+        }
+        
+        .game-tip {
+            margin-top: 30px;
+            color: #a1a1aa;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 开始界面 -->
+    <div id="startScreen">
+        <div class="game-title">
+            <span class="title-mechanical">机械军团</span>
+            <span class="title-vs">VS</span>
+            <span class="title-slime">史莱姆</span>
+        </div>
+        <button class="start-btn" onclick="startGame()">开始游戏</button>
+        <div class="game-tip">提示：收集太阳能，部署机械单位，抵御史莱姆入侵！</div>
+    </div>
+    
+    <!-- 游戏容器 -->
+    <div id="gameContainer">
+        <!-- HUD -->
+        <div id="hud">
+            <div class="hud-section">
+                <div class="resource-display">
+                    <div class="sun-icon"></div>
+                    <div class="resource-value" id="sunEnergy">150</div>
+                </div>
+                <div class="wave-info">
+                    <div>第 <span id="currentWave">1</span> 波 / 共 <span id="totalWaves">10</span> 波</div>
+                    <div>剩余敌人: <span id="remainingEnemies">0</span></div>
+                </div>
+            </div>
+            <div class="hud-section">
+                <div class="health-display" id="healthDisplay">
+                    <div class="health-heart"></div>
+                    <div class="health-heart"></div>
+                    <div class="health-heart"></div>
+                    <div class="health-heart"></div>
+                    <div class="health-heart"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 游戏区域 -->
+        <div id="gameArea">
+            <div id="gameBoard">
+                <!-- 游戏网格 -->
+                <div class="game-grid" id="gameGrid"></div>
+            </div>
+            
+            <!-- 单位选择面板 -->
+            <div id="unitPanel">
+                <div class="unit-card" data-unit="tank" data-cost="200">
+                    <div class="unit-icon tank-unit" style="width: 50px; height: 50px;"></div>
+                    <div class="unit-name">重型坦克</div>
+                    <div class="unit-cost">☀ 200</div>
+                </div>
+                <div class="unit-card" data-unit="artillery" data-cost="250">
+                    <div class="unit-icon artillery-unit" style="width: 50px; height: 50px;"></div>
+                    <div class="unit-name">榴弹炮</div>
+                    <div class="unit-cost">☀ 250</div>
+                </div>
+                <div class="unit-card" data-unit="laser" data-cost="300">
+                    <div class="unit-icon laser-unit" style="width: 50px; height: 50px;"></div>
+                    <div class="unit-name">激光炮</div>
+                    <div class="unit-cost">☀ 300</div>
+                </div>
+                <div class="unit-card" data-unit="collector" data-cost="50">
+                    <div class="unit-icon" style="width: 50px; height: 50px; background: radial-gradient(circle, #fbbf24, #f59e0b); border-radius: 50%;"></div>
+                    <div class="unit-name">太阳能板</div>
+                    <div class="unit-cost">☀ 50</div>
+                </div>
+            </div>
+            
+            <!-- 游戏控制 -->
+            <div id="gameControls">
+                <button class="control-btn" id="pauseBtn" onclick="togglePause()">⏸</button>
+                <button class="control-btn" id="speedBtn" onclick="toggleSpeed()">1×</button>
+            </div>
+        </div>
+        
+        <!-- 游戏结束覆盖层 -->
+        <div id="gameOverlay">
+            <div class="game-message" id="gameMessage">
+                <h2></h2>
+                <p></p>
+                <button class="restart-btn" onclick="restartGame()">重新开始</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 游戏状态
+        let gameState = {
+            sunEnergy: 150,
+            health: 5,
+            currentWave: 0,
+            totalWaves: 10,
+            isPaused: false,
+            gameSpeed: 1,
+            selectedUnit: null,
+            isGameOver: false,
+            units: [],
+            enemies: [],
+            projectiles: [],
+            sunDrops: [],
+            waveInProgress: false,
+            enemiesSpawnedInWave: 0,
+            totalEnemiesInWave: 0,
+            waveSpawnComplete: false
+        };
+        
+        // 波次配置
+        const waves = [
+            { enemies: 5, types: ['fire'], delay: 3000, interval: 2000 },
+            { enemies: 8, types: ['fire', 'water'], delay: 3000, interval: 1800 },
+            { enemies: 10, types: ['fire', 'water', 'thunder'], delay: 2500, interval: 1600 },
+            { enemies: 12, types: ['fire', 'water', 'thunder', 'ice'], delay: 2500, interval: 1500 },
+            { enemies: 15, types: ['fire', 'water', 'thunder', 'ice', 'grass'], delay: 2000, interval: 1400 },
+            { enemies: 18, types: ['water', 'thunder', 'ice'], delay: 2000, interval: 1300 },
+            { enemies: 20, types: ['fire', 'thunder', 'grass'], delay: 1800, interval: 1200 },
+            { enemies: 25, types: ['fire', 'water', 'thunder', 'ice', 'grass'], delay: 1500, interval: 1100 },
+            { enemies: 30, types: ['thunder', 'ice', 'grass'], delay: 1500, interval: 1000 },
+            { enemies: 35, types: ['fire', 'water', 'thunder', 'ice', 'grass'], delay: 1000, interval: 900 }
+        ];
+        
+        // 单位配置
+        const unitTypes = {
+            tank: {
+                name: '重型坦克',
+                cost: 200,
+                damage: 20,
+                fireRate: 1500,
+                range: 2,
+                health: 200,
+                element: 'physical'
+            },
+            artillery: {
+                name: '榴弹炮',
+                cost: 250,
+                damage: 40,
+                fireRate: 2500,
+                range: 4,
+                health: 100,
+                element: 'fire'
+            },
+            laser: {
+                name: '激光炮',
+                cost: 300,
+                damage: 15,
+                fireRate: 500,
+                range: 5,
+                health: 80,
+                element: 'thunder'
+            },
+            collector: {
+                name: '太阳能板',
+                cost: 50,
+                sunProduction: 25,
+                productionInterval: 8000,
+                health: 50
+            }
+        };
+        
+        // 敌人配置
+        const enemyTypes = {
+            fire: {
+                name: '火史莱姆',
+                health: 50,
+                damage: 1,
+                speed: 0.5,
+                reward: 25,
+                element: 'fire'
+            },
+            water: {
+                name: '水史莱姆',
+                health: 60,
+                damage: 1,
+                speed: 0.4,
+                reward: 30,
+                element: 'water'
+            },
+            thunder: {
+                name: '雷史莱姆',
+                health: 40,
+                damage: 1,
+                speed: 0.7,
+                reward: 35,
+                element: 'thunder'
+            },
+            ice: {
+                name: '冰史莱姆',
+                health: 80,
+                damage: 1,
+                speed: 0.3,
+                reward: 40,
+                element: 'ice'
+            },
+            grass: {
+                name: '草史莱姆',
+                health: 70,
+                damage: 1,
+                speed: 0.5,
+                reward: 35,
+                element: 'grass'
+            }
+        };
+        
+        // 初始化游戏
+        function initGame() {
+            createGameGrid();
+            setupEventListeners();
+            updateHUD();
+            startSunGeneration();
+        }
+        
+        // 创建游戏网格
+        function createGameGrid() {
+            const grid = document.getElementById('gameGrid');
+            grid.innerHTML = '';
+            for (let row = 0; row < 5; row++) {
+                for (let col = 0; col < 9; col++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'grid-cell';
+                    cell.dataset.row = row;
+                    cell.dataset.col = col;
+                    cell.onclick = () => placeUnit(row, col);
+                    grid.appendChild(cell);
+                }
+            }
+        }
+        
+        // 设置事件监听器
+        function setupEventListeners() {
+            document.querySelectorAll('.unit-card').forEach(card => {
+                card.onclick = () => selectUnit(card.dataset.unit);
+            });
+        }
+        
+        // 选择单位
+        function selectUnit(unitType) {
+            const cost = unitTypes[unitType].cost;
+            if (gameState.sunEnergy >= cost) {
+                gameState.selectedUnit = unitType;
+                document.querySelectorAll('.unit-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                event.currentTarget.classList.add('selected');
+            }
+        }
+        
+        // 放置单位
+        function placeUnit(row, col) {
+            if (!gameState.selectedUnit || gameState.isGameOver || gameState.isPaused) return;
+            
+            const cell = document.querySelector(`.grid-cell[data-row="${row}"][data-col="${col}"]`);
+            if (cell.classList.contains('occupied')) return;
+            
+            const unitType = unitTypes[gameState.selectedUnit];
+            if (gameState.sunEnergy >= unitType.cost) {
+                gameState.sunEnergy -= unitType.cost;
+                cell.classList.add('occupied');
+                
+                const unit = {
+                    type: gameState.selectedUnit,
+                    row: row,
+                    col: col,
+                    health: unitType.health,
+                    lastFire: 0,
+                    element: document.createElement('div')
+                };
+                
+                unit.element.className = `unit ${gameState.selectedUnit}-unit`;
+                cell.appendChild(unit.element);
+                
+                gameState.units.push(unit);
+                
+                if (gameState.selectedUnit === 'collector') {
+                    startSolarProduction(unit);
+                }
+                
+                gameState.selectedUnit = null;
+                document.querySelectorAll('.unit-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                updateHUD();
+            }
+        }
+        
+        // 开始游戏
+        function startGame() {
+            document.getElementById('startScreen').classList.add('hidden');
+            initGame();
+            setTimeout(() => startNextWave(), 3000);
+            gameLoop();
+        }
+        
+        // 开始下一波
+        function startNextWave() {
+            if (gameState.currentWave >= gameState.totalWaves) {
+                // 所有波次完成，检查是否还有敌人
+                if (gameState.enemies.length === 0) {
+                    endGame(true);
+                }
+                return;
+            }
+            
+            gameState.currentWave++;
+            const wave = waves[gameState.currentWave - 1];
+            gameState.waveInProgress = true;
+            gameState.enemiesSpawnedInWave = 0;
+            gameState.totalEnemiesInWave = wave.enemies;
+            gameState.waveSpawnComplete = false;
+            
+            const spawnInterval = setInterval(() => {
+                if (gameState.enemiesSpawnedInWave >= wave.enemies || gameState.isGameOver) {
+                    clearInterval(spawnInterval);
+                    gameState.waveSpawnComplete = true;
+                    return;
+                }
+                
+                if (!gameState.isPaused) {
+                    spawnEnemy(wave.types[Math.floor(Math.random() * wave.types.length)]);
+                    gameState.enemiesSpawnedInWave++;
+                }
+            }, wave.interval / gameState.gameSpeed);
+            
+            updateHUD();
+        }
+        
+        // 生成敌人
+        function spawnEnemy(type) {
+            const enemyConfig = enemyTypes[type];
+            const lane = Math.floor(Math.random() * 5);
+            
+            const enemy = {
+                type: type,
+                health: enemyConfig.health,
+                maxHealth: enemyConfig.health,
+                damage: enemyConfig.damage,
+                speed: enemyConfig.speed * gameState.gameSpeed,
+                reward: enemyConfig.reward,
+                x: window.innerWidth,
+                y: window.innerHeight * 0.5 + (lane * (window.innerHeight * 0.5 / 5)) + 30,
+                lane: lane,
+                element: document.createElement('div'),
+                elementType: enemyConfig.element
+            };
+            
+            enemy.element.className = `enemy slime slime-${type}`;
+            enemy.element.innerHTML = '<div class="slime-eyes"><div class="slime-eye"></div><div class="slime-eye"></div></div>';
+            enemy.element.style.left = enemy.x + 'px';
+            enemy.element.style.top = enemy.y + 'px';
+            
+            document.getElementById('gameBoard').appendChild(enemy.element);
+            gameState.enemies.push(enemy);
+            updateHUD();
+        }
+        
+        // 游戏循环
+        function gameLoop() {
+            if (!gameState.isGameOver) {
+                if (!gameState.isPaused) {
+                    updateEnemies();
+                    updateCombat();
+                    updateProjectiles();
+                    checkWaveComplete();
+                }
+                requestAnimationFrame(gameLoop);
+            }
+        }
+        
+        // 更新敌人
+        function updateEnemies() {
+            gameState.enemies = gameState.enemies.filter(enemy => {
+                enemy.x -= enemy.speed;
+                enemy.element.style.left = enemy.x + 'px';
+                
+                if (enemy.x < 100) {
+                    enemy.element.remove();
+                    gameState.health--;
+                    updateHUD();
+                    if (gameState.health <= 0) {
+                        endGame(false);
+                    }
+                    return false;
+                }
+                
+                if (enemy.health <= 0) {
+                    createElementalReaction(enemy.x, enemy.y, enemy.elementType);
+                    enemy.element.remove();
+                    gameState.sunEnergy += enemy.reward;
+                    updateHUD();
+                    return false;
+                }
+                
+                return true;
+            });
+        }
+        
+        // 更新战斗
+        function updateCombat() {
+            const now = Date.now();
+            gameState.units.forEach(unit => {
+                if (unit.type === 'collector') return;
+                
+                const unitConfig = unitTypes[unit.type];
+                if (now - unit.lastFire >= unitConfig.fireRate / gameState.gameSpeed) {
+                    const target = findTarget(unit);
+                    if (target) {
+                        fireProjectile(unit, target);
+                        unit.lastFire = now;
+                    }
+                }
+            });
+        }
+        
+        // 查找目标
+        function findTarget(unit) {
+            const unitConfig = unitTypes[unit.type];
+            const cellWidth = window.innerWidth / 9;
+            const unitX = unit.col * cellWidth + cellWidth / 2;
+            
+            return gameState.enemies.find(enemy => {
+                const distance = Math.abs(enemy.x - unitX);
+                return enemy.lane === unit.row && distance <= unitConfig.range * cellWidth;
+            });
+        }
+        
+        // 发射投射物
+        function fireProjectile(unit, target) {
+            const cellWidth = window.innerWidth / 9;
+            const cellHeight = window.innerHeight * 0.5 / 5;
+            const unitX = unit.col * cellWidth + cellWidth / 2;
+            const unitY = window.innerHeight * 0.5 + unit.row * cellHeight + cellHeight / 2;
+            
+            const projectile = {
+                x: unitX,
+                y: unitY,
+                targetX: target.x,
+                targetY: target.y,
+                damage: unitTypes[unit.type].damage,
+                speed: 10 * gameState.gameSpeed,
+                element: document.createElement('div'),
+                type: unit.type,
+                target: target
+            };
+            
+            if (unit.type === 'laser') {
+                projectile.element.className = 'projectile laser-beam';
+                projectile.element.style.width = Math.abs(target.x - unitX) + 'px';
+                projectile.element.style.left = Math.min(unitX, target.x) + 'px';
+                projectile.element.style.top = unitY + 'px';
+                
+                // 激光立即造成伤害
+                target.health -= projectile.damage;
+                document.getElementById('gameBoard').appendChild(projectile.element);
+                setTimeout(() => projectile.element.remove(), 200);
+            } else {
+                projectile.element.className = 'projectile bullet';
+                if (unit.type === 'artillery') {
+                    projectile.element.style.width = '12px';
+                    projectile.element.style.height = '12px';
+                    projectile.element.style.background = '#dc2626';
+                }
+                projectile.element.style.left = unitX + 'px';
+                projectile.element.style.top = unitY + 'px';
+                document.getElementById('gameBoard').appendChild(projectile.element);
+                gameState.projectiles.push(projectile);
+            }
+        }
+        
+        // 更新投射物
+        function updateProjectiles() {
+            gameState.projectiles = gameState.projectiles.filter(projectile => {
+                const dx = projectile.targetX - projectile.x;
+                const dy = projectile.targetY - projectile.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 10) {
+                    // 击中目标
+                    if (projectile.target && gameState.enemies.includes(projectile.target)) {
+                        projectile.target.health -= projectile.damage;
+                        if (projectile.type === 'artillery') {
+                            createExplosion(projectile.x, projectile.y);
+                            // 范围伤害
+                            gameState.enemies.forEach(enemy => {
+                                const dist = Math.sqrt(Math.pow(enemy.x - projectile.x, 2) + Math.pow(enemy.y - projectile.y, 2));
+                                if (dist < 80 && enemy !== projectile.target) {
+                                    enemy.health -= projectile.damage * 0.5;
+                                }
+                            });
+                        }
+                    }
+                    projectile.element.remove();
+                    return false;
+                }
+                
+                // 移动投射物
+                projectile.x += (dx / distance) * projectile.speed;
+                projectile.y += (dy / distance) * projectile.speed;
+                projectile.element.style.left = projectile.x + 'px';
+                projectile.element.style.top = projectile.y + 'px';
+                
+                return true;
+            });
+        }
+        
+        // 创建爆炸效果
+        function createExplosion(x, y) {
+            const explosion = document.createElement('div');
+            explosion.className = 'explosion';
+            explosion.style.left = (x - 40) + 'px';
+            explosion.style.top = (y - 40) + 'px';
+            document.getElementById('gameBoard').appendChild(explosion);
+            setTimeout(() => explosion.remove(), 500);
+        }
+        
+        // 创建元素反应
+        function createElementalReaction(x, y, element) {
+            if (Math.random() > 0.3) return; // 30%概率触发元素反应
+            
+            const reaction = document.createElement('div');
+            reaction.className = 'elemental-reaction';
+            
+            if (element === 'fire' || element === 'water') {
+                reaction.classList.add('vaporize-effect');
+            } else if (element === 'ice') {
+                reaction.classList.add('freeze-effect');
+            }
+            
+            reaction.style.left = (x - 50) + 'px';
+            reaction.style.top = (y - 50) + 'px';
+            document.getElementById('gameBoard').appendChild(reaction);
+            setTimeout(() => reaction.remove(), 1000);
+        }
+        
+        // 检查波次完成
+        function checkWaveComplete() {
+            // 只在当前波次的敌人全部生成且全部被消灭后才进入下一波
+            if (gameState.waveSpawnComplete && gameState.enemies.length === 0 && gameState.waveInProgress) {
+                gameState.waveInProgress = false;
+                
+                if (gameState.currentWave < gameState.totalWaves) {
+                    // 还有更多波次，等待后开始下一波
+                    setTimeout(() => {
+                        if (!gameState.isGameOver) {
+                            startNextWave();
+                        }
+                    }, 5000 / gameState.gameSpeed);
+                } else {
+                    // 所有波次完成，游戏胜利
+                    setTimeout(() => {
+                        if (!gameState.isGameOver && gameState.enemies.length === 0) {
+                            endGame(true);
+                        }
+                    }, 1000);
+                }
+            }
+        }
+        
+        // 太阳能生成
+        function startSunGeneration() {
+            setInterval(() => {
+                if (!gameState.isPaused && !gameState.isGameOver) {
+                    generateSun();
+                }
+            }, 10000 / gameState.gameSpeed);
+        }
+        
+        function generateSun() {
+            const sun = document.createElement('div');
+            sun.className = 'sun-energy';
+            sun.style.left = (100 + Math.random() * (window.innerWidth - 200)) + 'px';
+            sun.onclick = () => collectSun(sun);
+            document.getElementById('gameBoard').appendChild(sun);
+            
+            setTimeout(() => {
+                if (sun.parentElement) {
+                    sun.remove();
+                }
+            }, 15000);
+        }
+        
+        function collectSun(sun) {
+            gameState.sunEnergy += 25;
+            updateHUD();
+            sun.remove();
+        }
+        
+        // 太阳能板生产
+        function startSolarProduction(unit) {
+            setInterval(() => {
+                if (!gameState.isPaused && !gameState.isGameOver && gameState.units.includes(unit)) {
+                    gameState.sunEnergy += unitTypes.collector.sunProduction;
+                    updateHUD();
+                }
+            }, unitTypes.collector.productionInterval / gameState.gameSpeed);
+        }
+        
+        // 更新HUD
+        function updateHUD() {
+            document.getElementById('sunEnergy').textContent = gameState.sunEnergy;
+            document.getElementById('currentWave').textContent = gameState.currentWave || 0;
+            document.getElementById('totalWaves').textContent = gameState.totalWaves;
+            
+            // 显示当前波次中剩余的敌人数（包括还未生成的）
+            const remainingInWave = gameState.enemies.length + 
+                (gameState.waveInProgress ? (gameState.totalEnemiesInWave - gameState.enemiesSpawnedInWave) : 0);
+            document.getElementById('remainingEnemies').textContent = remainingInWave;
+            
+            const hearts = document.querySelectorAll('.health-heart');
+            hearts.forEach((heart, index) => {
+                if (index >= gameState.health) {
+                    heart.classList.add('empty');
+                } else {
+                    heart.classList.remove('empty');
+                }
+            });
+            
+            // 更新单位卡片状态
+            document.querySelectorAll('.unit-card').forEach(card => {
+                const cost = parseInt(card.dataset.cost);
+                if (gameState.sunEnergy >= cost) {
+                    card.classList.remove('disabled');
+                } else {
+                    card.classList.add('disabled');
+                }
+            });
+        }
+        
+        // 游戏结束
+        function endGame(victory) {
+            gameState.isGameOver = true;
+            const overlay = document.getElementById('gameOverlay');
+            const message = document.getElementById('gameMessage');
+            
+            if (victory) {
+                message.className = 'game-message victory-message';
+                message.querySelector('h2').textContent = '胜利！';
+                message.querySelector('p').textContent = `成功抵御了所有史莱姆的入侵！\n最终得分: ${gameState.sunEnergy}`;
+            } else {
+                message.className = 'game-message defeat-message';
+                message.querySelector('h2').textContent = '失败';
+                message.querySelector('p').textContent = `防线被史莱姆突破了...\n坚持到第 ${gameState.currentWave} 波`;
+            }
+            
+            overlay.classList.add('show');
+        }
+        
+        // 暂停/继续游戏
+        function togglePause() {
+            gameState.isPaused = !gameState.isPaused;
+            const btn = document.getElementById('pauseBtn');
+            btn.textContent = gameState.isPaused ? '▶' : '⏸';
+            btn.classList.toggle('active', gameState.isPaused);
+        }
+        
+        // 切换游戏速度
+        function toggleSpeed() {
+            const speeds = [1, 2, 3];
+            const currentIndex = speeds.indexOf(gameState.gameSpeed);
+            gameState.gameSpeed = speeds[(currentIndex + 1) % speeds.length];
+            document.getElementById('speedBtn').textContent = gameState.gameSpeed + '×';
+        }
+        
+        // 重新开始游戏
+        function restartGame() {
+            // 清理当前游戏
+            gameState.enemies.forEach(enemy => enemy.element.remove());
+            gameState.projectiles.forEach(projectile => projectile.element.remove());
+            gameState.units.forEach(unit => unit.element.remove());
+            document.querySelectorAll('.sun-energy').forEach(sun => sun.remove());
+            document.querySelectorAll('.elemental-reaction').forEach(effect => effect.remove());
+            document.querySelectorAll('.explosion').forEach(exp => exp.remove());
+            
+            // 重置游戏状态
+            gameState = {
+                sunEnergy: 150,
+                health: 5,
+                currentWave: 0,
+                totalWaves: 10,
+                isPaused: false,
+                gameSpeed: 1,
+                selectedUnit: null,
+                isGameOver: false,
+                units: [],
+                enemies: [],
+                projectiles: [],
+                sunDrops: [],
+                waveInProgress: false,
+                enemiesSpawnedInWave: 0,
+                totalEnemiesInWave: 0,
+                waveSpawnComplete: false
+            };
+            
+            // 隐藏游戏结束界面
+            document.getElementById('gameOverlay').classList.remove('show');
+            
+            // 重新初始化游戏
+            initGame();
+            setTimeout(() => startNextWave(), 3000);
+            gameLoop();
+        }
+    </script>
+</body>
+</html>
