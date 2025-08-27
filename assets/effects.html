@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视觉特效资源</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #0f172a;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        h1, h2 {
+            color: #e2e8f0;
+            text-align: center;
+        }
+        .effects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .effect-card {
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 1px solid #334155;
+        }
+        .effect-card h3 {
+            color: #f1f5f9;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            background: #0f172a;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>视觉特效资源库</h1>
+        
+        <h2>元素反应特效</h2>
+        <div class="effects-grid">
+            
+            <!-- 蒸发反应 -->
+            <div class="effect-card">
+                <h3>蒸发（火+水）</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <radialGradient id="vaporizeGrad">
+                            <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#0ea5e9;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#e0f2fe;stop-opacity:0.3" />
+                        </radialGradient>
+                        <filter id="steamBlur">
+                            <feGaussianBlur stdDeviation="3"/>
+                        </filter>
+                    </defs>
+                    
+                    <!-- 蒸汽云 -->
+                    <g id="steam-clouds">
+                        <ellipse cx="160" cy="100" rx="60" ry="40" fill="url(#vaporizeGrad)" filter="url(#steamBlur)" opacity="0.7">
+                            <animate attributeName="ry" from="40" to="80" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="rx" from="60" to="100" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.7" to="0" dur="2s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="140" cy="90" rx="40" ry="30" fill="#e0f2fe" filter="url(#steamBlur)" opacity="0.6">
+                            <animate attributeName="cy" from="90" to="60" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.6" to="0" dur="2s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="180" cy="110" rx="45" ry="35" fill="#e0f2fe" filter="url(#steamBlur)" opacity="0.5">
+                            <animate attributeName="cy" from="110" to="70" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.5" to="0" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                        </ellipse>
+                    </g>
+                    
+                    <!-- 火花和水滴 -->
+                    <g id="particles">
+                        <circle cx="130" cy="120" r="3" fill="#dc2626" opacity="0.8">
+                            <animate attributeName="cy" from="120" to="80" dur="1s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.8" to="0" dur="1s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="190" cy="130" r="3" fill="#0ea5e9" opacity="0.8">
+                            <animate attributeName="cy" from="130" to="90" dur="1s" begin="0.3s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.8" to="0" dur="1s" begin="0.3s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- 超载反应 -->
+            <div class="effect-card">
+                <h3>超载（火+雷）</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <radialGradient id="overloadGrad">
+                            <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+                            <stop offset="30%" style="stop-color:#f59e0b;stop-opacity:1" />
+                            <stop offset="60%" style="stop-color:#dc2626;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:0.5" />
+                        </radialGradient>
+                    </defs>
+                    
+                    <!-- 爆炸核心 -->
+                    <circle cx="160" cy="100" r="20" fill="white" opacity="1">
+                        <animate attributeName="r" from="20" to="80" dur="0.5s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" from="1" to="0" dur="0.5s" repeatCount="indefinite"/>
+                    </circle>
+                    
+                    <!-- 爆炸环 -->
+                    <circle cx="160" cy="100" r="30" fill="none" stroke="url(#overloadGrad)" stroke-width="10" opacity="0.8">
+                        <animate attributeName="r" from="30" to="100" dur="1s" repeatCount="indefinite"/>
+                        <animate attributeName="stroke-width" from="10" to="2" dur="1s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" from="0.8" to="0" dur="1s" repeatCount="indefinite"/>
+                    </circle>
+                    
+                    <!-- 电弧 -->
+                    <g stroke="#a78bfa" stroke-width="3" fill="none">
+                        <path d="M 120 100 L 110 90 L 115 80 L 105 70" opacity="0">
+                            <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="0s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="1" to="0" dur="0.2s" begin="0.2s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 200 100 L 210 90 L 205 80 L 215 70" opacity="0">
+                            <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="0.3s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="1" to="0" dur="0.2s" begin="0.5s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 160 60 L 150 50 L 160 40 L 150 30" opacity="0">
+                            <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="0.1s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="1" to="0" dur="0.2s" begin="0.3s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                    
+                    <!-- 火焰碎片 -->
+                    <g id="fire-fragments">
+                        <polygon points="140,90 145,85 142,95" fill="#dc2626" opacity="0.8">
+                            <animateTransform attributeName="transform" type="translate" from="0 0" to="-30 -40" dur="1s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.8" to="0" dur="1s" repeatCount="indefinite"/>
+                        </polygon>
+                        <polygon points="180,110 185,105 182,115" fill="#f59e0b" opacity="0.8">
+                            <animateTransform attributeName="transform" type="translate" from="0 0" to="30 -40" dur="1s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.8" to="0" dur="1s" repeatCount="indefinite"/>
+                        </polygon>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- 冻结反应 -->
+            <div class="effect-card">
+                <h3>冻结（水+冰）</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="freezeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#e0f2fe;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#7dd3fc;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0891b2;stop-opacity:1" />
+                        </linearGradient>
+                        <pattern id="icePattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <polygon points="10,0 15,10 10,20 5,10" fill="none" stroke="#bae6fd" stroke-width="1" opacity="0.5"/>
+                        </pattern>
+                    </defs>
+                    
+                    <!-- 冰块形成 -->
+                    <rect x="110" y="50" width="100" height="100" rx="10" fill="url(#freezeGrad)" opacity="0.8">
+                        <animate attributeName="width" from="0" to="100" dur="1s" repeatCount="indefinite"/>
+                        <animate attributeName="height" from="0" to="100" dur="1s" repeatCount="indefinite"/>
+                        <animate attributeName="x" from="160" to="110" dur="1s" repeatCount="indefinite"/>
+                        <animate attributeName="y" from="100" to="50" dur="1s" repeatCount="indefinite"/>
+                    </rect>
+                    
+                    <!-- 冰晶纹理 -->
+                    <rect x="110" y="50" width="100" height="100" rx="10" fill="url(#icePattern)" opacity="0.6"/>
+                    
+                    <!-- 冰棱 -->
+                    <g id="ice-spikes">
+                        <polygon points="100,100 110,80 120,100" fill="#7dd3fc" opacity="0.9">
+                            <animate attributeName="points" from="100,100 110,100 120,100" to="100,100 110,80 120,100" dur="0.5s" repeatCount="indefinite"/>
+                        </polygon>
+                        <polygon points="200,100 210,75 220,100" fill="#7dd3fc" opacity="0.9">
+                            <animate attributeName="points" from="200,100 210,100 220,100" to="200,100 210,75 220,100" dur="0.5s" begin="0.2s" repeatCount="indefinite"/>
+                        </polygon>
+                        <polygon points="150,50 160,30 170,50" fill="#7dd3fc" opacity="0.9">
+                            <animate attributeName="points" from="150,50 160,50 170,50" to="150,50 160,30 170,50" dur="0.5s" begin="0.1s" repeatCount="indefinite"/>
+                        </polygon>
+                    </g>
+                    
+                    <!-- 冰雾 -->
+                    <ellipse cx="160" cy="100" rx="80" ry="60" fill="#e0f2fe" opacity="0.3">
+                        <animate attributeName="rx" from="80" to="120" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="ry" from="60" to="90" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                    </ellipse>
+                </svg>
+            </div>
+            
+            <!-- 融化反应 -->
+            <div class="effect-card">
+                <h3>融化（火+冰）</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="meltGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#dc2626;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0ea5e9;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 融化的冰块 -->
+                    <rect x="120" y="60" width="80" height="80" rx="10" fill="#7dd3fc" opacity="0.8">
+                        <animate attributeName="height" from="80" to="40" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="y" from="60" to="100" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" from="0.8" to="0.3" dur="2s" repeatCount="indefinite"/>
+                    </rect>
+                    
+                    <!-- 水滴 -->
+                    <g id="water-drops">
+                        <ellipse cx="140" cy="140" rx="5" ry="8" fill="#0ea5e9" opacity="0.8">
+                            <animate attributeName="cy" from="140" to="180" dur="1s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.8" to="0" dur="1s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="160" cy="140" rx="5" ry="8" fill="#0ea5e9" opacity="0.8">
+                            <animate attributeName="cy" from="140" to="180" dur="1s" begin="0.3s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.8" to="0" dur="1s" begin="0.3s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="180" cy="140" rx="5" ry="8" fill="#0ea5e9" opacity="0.8">
+                            <animate attributeName="cy" from="140" to="180" dur="1s" begin="0.6s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.8" to="0" dur="1s" begin="0.6s" repeatCount="indefinite"/>
+                        </ellipse>
+                    </g>
+                    
+                    <!-- 火焰 -->
+                    <g id="melting-flames">
+                        <path d="M 150 60 Q 145 40, 155 50 T 160 60" fill="#dc2626" opacity="0.7">
+                            <animate attributeName="d" values="M 150 60 Q 145 40, 155 50 T 160 60;M 150 65 Q 145 45, 155 55 T 160 65;M 150 60 Q 145 40, 155 50 T 160 60" dur="1s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 170 60 Q 165 40, 175 50 T 180 60" fill="#f59e0b" opacity="0.6">
+                            <animate attributeName="d" values="M 170 60 Q 165 40, 175 50 T 180 60;M 170 65 Q 165 45, 175 55 T 180 65;M 170 60 Q 165 40, 175 50 T 180 60" dur="1s" begin="0.5s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                    
+                    <!-- 蒸汽 -->
+                    <ellipse cx="160" cy="80" rx="40" ry="30" fill="white" opacity="0.3" filter="url(#steamBlur)">
+                        <animate attributeName="cy" from="80" to="40" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+                    </ellipse>
+                </svg>
+            </div>
+            
+            <!-- 感电反应 -->
+            <div class="effect-card">
+                <h3>感电（水+雷）</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <radialGradient id="electroChargedGrad">
+                            <stop offset="0%" style="stop-color:#e0e7ff;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#a78bfa;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#6b21a8;stop-opacity:0.5" />
+                        </radialGradient>
+                    </defs>
+                    
+                    <!-- 电场 -->
+                    <ellipse cx="160" cy="100" rx="80" ry="80" fill="url(#electroChargedGrad)" opacity="0.4">
+                        <animate attributeName="opacity" values="0.4;0.7;0.4" dur="1s" repeatCount="indefinite"/>
+                    </ellipse>
+                    
+                    <!-- 连锁电弧 -->
+                    <g stroke="#a78bfa" stroke-width="2" fill="none">
+                        <path d="M 160 100 L 120 80 L 110 85 L 100 75">
+                            <animate attributeName="opacity" from="0" to="1" dur="0.3s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 160 100 L 200 80 L 210 85 L 220 75">
+                            <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="0.15s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 160 100 L 140 130 L 135 140 L 125 145">
+                            <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="0.3s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 160 100 L 180 130 L 185 140 L 195 145">
+                            <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="0.45s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                    
+                    <!-- 水花飞溅 -->
+                    <g id="water-sparks">
+                        <circle cx="120" cy="80" r="3" fill="#0ea5e9" opacity="0.8">
+                            <animateTransform attributeName="transform" type="translate" from="0 0" to="-20 -20" dur="0.5s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.8" to="0" dur="0.5s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="200" cy="80" r="3" fill="#0ea5e9" opacity="0.8">
+                            <animateTransform attributeName="transform" type="translate" from="0 0" to="20 -20" dur="0.5s" begin="0.25s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.8" to="0" dur="0.5s" begin="0.25s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                    
+                    <!-- 电火花 -->
+                    <g id="electric-sparks">
+                        <circle cx="160" cy="100" r="2" fill="white">
+                            <animate attributeName="r" values="2;6;2" dur="0.5s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="1;0;1" dur="0.5s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- 燃烧反应 -->
+            <div class="effect-card">
+                <h3>燃烧（火+草）</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <radialGradient id="burnGrad">
+                            <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+                            <stop offset="40%" style="stop-color:#f59e0b;stop-opacity:1" />
+                            <stop offset="70%" style="stop-color:#dc2626;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#7f1d1d;stop-opacity:0.8" />
+                        </radialGradient>
+                    </defs>
+                    
+                    <!-- 持续燃烧的火焰 -->
+                    <g id="burning-flames">
+                        <path d="M 130 140 Q 125 110, 135 125 T 140 140" fill="url(#burnGrad)" opacity="0.9">
+                            <animate attributeName="d" values="M 130 140 Q 125 110, 135 125 T 140 140;M 130 140 Q 125 115, 135 130 T 140 140;M 130 140 Q 125 110, 135 125 T 140 140" dur="0.8s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 150 140 Q 145 105, 155 120 T 160 140" fill="#fbbf24" opacity="0.8">
+                            <animate attributeName="d" values="M 150 140 Q 145 105, 155 120 T 160 140;M 150 140 Q 145 110, 155 125 T 160 140;M 150 140 Q 145 105, 155 120 T 160 140" dur="1s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 170 140 Q 165 110, 175 125 T 180 140" fill="#dc2626" opacity="0.8">
+                            <animate attributeName="d" values="M 170 140 Q 165 110, 175 125 T 180 140;M 170 140 Q 165 115, 175 130 T 180 140;M 170 140 Q 165 110, 175 125 T 180 140" dur="0.9s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 190 140 Q 185 108, 195 123 T 200 140" fill="#f59e0b" opacity="0.7">
+                            <animate attributeName="d" values="M 190 140 Q 185 108, 195 123 T 200 140;M 190 140 Q 185 113, 195 128 T 200 140;M 190 140 Q 185 108, 195 123 T 200 140" dur="0.7s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                    
+                    <!-- 草元素残留 -->
+                    <g id="grass-embers" opacity="0.6">
+                        <rect x="130" y="140" width="70" height="5" fill="#22c55e" rx="2"/>
+                        <rect x="140" y="135" width="50" height="3" fill="#16a34a" rx="1"/>
+                    </g>
+                    
+                    <!-- 火星 -->
+                    <g id="fire-particles">
+                        <circle cx="145" cy="120" r="2" fill="#fbbf24" opacity="0.8">
+                            <animate attributeName="cy" from="120" to="60" dur="2s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.8" to="0" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="175" cy="125" r="1.5" fill="#f59e0b" opacity="0.7">
+                            <animate attributeName="cy" from="125" to="65" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.7" to="0" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="160" cy="130" r="2" fill="#dc2626" opacity="0.9">
+                            <animate attributeName="cy" from="130" to="70" dur="2s" begin="1s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.9" to="0" dur="2s" begin="1s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                    
+                    <!-- 烟雾 -->
+                    <ellipse cx="160" cy="100" rx="50" ry="40" fill="#6b7280" opacity="0.2" filter="url(#steamBlur)">
+                        <animate attributeName="cy" from="100" to="60" dur="3s" repeatCount="indefinite"/>
+                        <animate attributeName="rx" from="50" to="80" dur="3s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" from="0.2" to="0" dur="3s" repeatCount="indefinite"/>
+                    </ellipse>
+                </svg>
+            </div>
+        </div>
+        
+        <h2>攻击特效</h2>
+        <div class="effects-grid">
+            
+            <!-- 激光束 -->
+            <div class="effect-card">
+                <h3>激光束攻击</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="laserBeamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:0.3" />
+                            <stop offset="50%" style="stop-color:#dbeafe;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:0.3" />
+                        </linearGradient>
+                        <filter id="laserGlow">
+                            <feGaussianBlur stdDeviation="5"/>
+                        </filter>
+                    </defs>
+                    
+                    <!-- 激光束主体 -->
+                    <rect x="0" y="95" width="320" height="10" fill="url(#laserBeamGrad)" filter="url(#laserGlow)">
+                        <animate attributeName="opacity" values="0;1;0" dur="1s" repeatCount="indefinite"/>
+                    </rect>
+                    <rect x="0" y="98" width="320" height="4" fill="#dbeafe">
+                        <animate attributeName="opacity" values="0;1;0" dur="1s" repeatCount="indefinite"/>
+                    </rect>
+                    <rect x="0" y="99" width="320" height="2" fill="white">
+                        <animate attributeName="opacity" values="0;1;0" dur="1s" repeatCount="indefinite"/>
+                    </rect>
+                    
+                    <!-- 击中点爆炸 -->
+                    <g id="laser-impact">
+                        <circle cx="280" cy="100" r="5" fill="white" opacity="0">
+                            <animate attributeName="r" from="5" to="30" dur="0.5s" begin="0.8s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0;1;0" dur="0.5s" begin="0.8s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="280" cy="100" r="10" fill="#60a5fa" opacity="0">
+                            <animate attributeName="r" from="10" to="40" dur="0.5s" begin="0.8s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0;0.8;0" dur="0.5s" begin="0.8s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- 导弹爆炸 -->
+            <div class="effect-card">
+                <h3>导弹爆炸</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <radialGradient id="explosionGrad">
+                            <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+                            <stop offset="30%" style="stop-color:#fbbf24;stop-opacity:1" />
+                            <stop offset="60%" style="stop-color:#f59e0b;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#dc2626;stop-opacity:0.5" />
+                        </radialGradient>
+                    </defs>
+                    
+                    <!-- 导弹轨迹 -->
+                    <path d="M 50 150 Q 100 50, 160 100" stroke="#6b7280" stroke-width="3" fill="none" opacity="0.5" stroke-dasharray="5,5">
+                        <animate attributeName="stroke-dashoffset" from="0" to="10" dur="0.5s" repeatCount="indefinite"/>
+                    </path>
+                    
+                    <!-- 爆炸效果 -->
+                    <g id="explosion">
+                        <!-- 核心爆炸 -->
+                        <circle cx="160" cy="100" r="10" fill="white" opacity="0">
+                            <animate attributeName="r" values="10;60;80" dur="1s" begin="0.5s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0;1;0" dur="1s" begin="0.5s" repeatCount="indefinite"/>
+                        </circle>
+                        
+                        <!-- 火球 -->
+                        <circle cx="160" cy="100" r="20" fill="url(#explosionGrad)" opacity="0">
+                            <animate attributeName="r" values="20;80;100" dur="1.2s" begin="0.5s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" values="0;0.9;0" dur="1.2s" begin="0.5s" repeatCount="indefinite"/>
+                        </circle>
+                        
+                        <!-- 碎片 -->
+                        <g id="shrapnel">
+                            <rect x="158" y="98" width="4" height="4" fill="#dc2626" opacity="0">
+                                <animateTransform attributeName="transform" type="translate" from="0 0" to="-50 -50" dur="1s" begin="0.6s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" values="0;1;0" dur="1s" begin="0.6s" repeatCount="indefinite"/>
+                            </rect>
+                            <rect x="158" y="98" width="4" height="4" fill="#f59e0b" opacity="0">
+                                <animateTransform attributeName="transform" type="translate" from="0 0" to="50 -50" dur="1s" begin="0.6s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" values="0;1;0" dur="1s" begin="0.6s" repeatCount="indefinite"/>
+                            </rect>
+                            <rect x="158" y="98" width="4" height="4" fill="#fbbf24" opacity="0">
+                                <animateTransform attributeName="transform" type="translate" from="0 0" to="-50 50" dur="1s" begin="0.6s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" values="0;1;0" dur="1s" begin="0.6s" repeatCount="indefinite"/>
+                            </rect>
+                            <rect x="158" y="98" width="4" height="4" fill="#dc2626" opacity="0">
+                                <animateTransform attributeName="transform" type="translate" from="0 0" to="50 50" dur="1s" begin="0.6s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" values="0;1;0" dur="1s" begin="0.6s" repeatCount="indefinite"/>
+                            </rect>
+                        </g>
+                    </g>
+                    
+                    <!-- 烟雾 -->
+                    <ellipse cx="160" cy="100" rx="40" ry="30" fill="#6b7280" opacity="0" filter="url(#steamBlur)">
+                        <animate attributeName="rx" values="40;100;120" dur="2s" begin="1s" repeatCount="indefinite"/>
+                        <animate attributeName="ry" values="30;80;100" dur="2s" begin="1s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0;0.5;0" dur="2s" begin="1s" repeatCount="indefinite"/>
+                    </ellipse>
+                </svg>
+            </div>
+            
+            <!-- 电磁脉冲 -->
+            <div class="effect-card">
+                <h3>电磁脉冲</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <radialGradient id="empGrad">
+                            <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#a78bfa;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#6b21a8;stop-opacity:0.3" />
+                        </radialGradient>
+                    </defs>
+                    
+                    <!-- EMP波 -->
+                    <g id="emp-waves">
+                        <circle cx="160" cy="100" r="20" fill="none" stroke="url(#empGrad)" stroke-width="20" opacity="1">
+                            <animate attributeName="r" from="20" to="100" dur="1s" repeatCount="indefinite"/>
+                            <animate attributeName="stroke-width" from="20" to="2" dur="1s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="1" to="0" dur="1s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="160" cy="100" r="20" fill="none" stroke="#fbbf24" stroke-width="10" opacity="0.8">
+                            <animate attributeName="r" from="20" to="100" dur="1s" begin="0.3s" repeatCount="indefinite"/>
+                            <animate attributeName="stroke-width" from="10" to="1" dur="1s" begin="0.3s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="0.8" to="0" dur="1s" begin="0.3s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                    
+                    <!-- 电弧干扰 -->
+                    <g stroke="#a78bfa" stroke-width="2" fill="none" opacity="0.8">
+                        <path d="M 100 100 L 90 90 L 95 80 L 85 70">
+                            <animate attributeName="opacity" values="0;1;0" dur="0.2s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 220 100 L 230 90 L 225 80 L 235 70">
+                            <animate attributeName="opacity" values="0;1;0" dur="0.2s" begin="0.1s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 160 40 L 150 30 L 160 20 L 150 10">
+                            <animate attributeName="opacity" values="0;1;0" dur="0.2s" begin="0.15s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 160 160 L 150 170 L 160 180 L 150 190">
+                            <animate attributeName="opacity" values="0;1;0" dur="0.2s" begin="0.05s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                    
+                    <!-- 核心闪光 -->
+                    <circle cx="160" cy="100" r="10" fill="white" opacity="1">
+                        <animate attributeName="r" values="10;15;10" dur="0.5s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="1;0.5;1" dur="0.5s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
+            </div>
+        </div>
+        
+        <h2>防御特效</h2>
+        <div class="effects-grid">
+            
+            <!-- 能量护盾 -->
+            <div class="effect-card">
+                <h3>能量护盾</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <radialGradient id="shieldGrad">
+                            <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:0.3" />
+                            <stop offset="70%" style="stop-color:#3b82f6;stop-opacity:0.6" />
+                            <stop offset="100%" style="stop-color:#1e40af;stop-opacity:0.8" />
+                        </radialGradient>
+                        <pattern id="hexPattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+                            <polygon points="15,0 25,10 25,20 15,30 5,20 5,10" fill="none" stroke="#60a5fa" stroke-width="1" opacity="0.5"/>
+                        </pattern>
+                    </defs>
+                    
+                    <!-- 护盾主体 -->
+                    <ellipse cx="160" cy="100" rx="80" ry="70" fill="url(#shieldGrad)" opacity="0.7"/>
+                    <ellipse cx="160" cy="100" rx="80" ry="70" fill="url(#hexPattern)"/>
+                    
+                    <!-- 护盾边缘 -->
+                    <ellipse cx="160" cy="100" rx="80" ry="70" fill="none" stroke="#60a5fa" stroke-width="3" opacity="0.9">
+                        <animate attributeName="stroke-opacity" values="0.9;0.5;0.9" dur="2s" repeatCount="indefinite"/>
+                    </ellipse>
+                    
+                    <!-- 能量流动 -->
+                    <g opacity="0.6">
+                        <path d="M 80 100 Q 120 80, 160 100 T 240 100" stroke="#dbeafe" stroke-width="2" fill="none">
+                            <animate attributeName="d" values="M 80 100 Q 120 80, 160 100 T 240 100;M 80 100 Q 120 120, 160 100 T 240 100;M 80 100 Q 120 80, 160 100 T 240 100" dur="3s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                    
+                    <!-- 击中波纹 -->
+                    <g id="shield-ripple">
+                        <circle cx="160" cy="100" r="20" fill="none" stroke="#dbeafe" stroke-width="2" opacity="0">
+                            <animate attributeName="r" from="20" to="60" dur="1s" begin="0s;3s" />
+                            <animate attributeName="opacity" values="0;1;0" dur="1s" begin="0s;3s" />
+                        </circle>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- 修复光束 -->
+            <div class="effect-card">
+                <h3>纳米修复</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="healGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#86efac;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#22c55e;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#16a34a;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 修复光束 -->
+                    <rect x="155" y="0" width="10" height="200" fill="url(#healGrad)" opacity="0.6">
+                        <animate attributeName="opacity" values="0.6;1;0.6" dur="1s" repeatCount="indefinite"/>
+                    </rect>
+                    <rect x="157" y="0" width="6" height="200" fill="#86efac" opacity="0.8">
+                        <animate attributeName="opacity" values="0.8;1;0.8" dur="1s" repeatCount="indefinite"/>
+                    </rect>
+                    
+                    <!-- 纳米粒子 -->
+                    <g id="nano-particles">
+                        <circle cx="140" cy="50" r="2" fill="#22c55e" opacity="0.8">
+                            <animate attributeName="cy" from="50" to="150" dur="2s" repeatCount="indefinite"/>
+                            <animateTransform attributeName="transform" type="rotate" from="0 160 100" to="360 160 100" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="180" cy="70" r="2" fill="#22c55e" opacity="0.8">
+                            <animate attributeName="cy" from="70" to="170" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                            <animateTransform attributeName="transform" type="rotate" from="0 160 100" to="-360 160 100" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="150" cy="30" r="2" fill="#22c55e" opacity="0.8">
+                            <animate attributeName="cy" from="30" to="130" dur="2s" begin="1s" repeatCount="indefinite"/>
+                            <animateTransform attributeName="transform" type="rotate" from="0 160 100" to="360 160 100" dur="2s" begin="1s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="170" cy="90" r="2" fill="#22c55e" opacity="0.8">
+                            <animate attributeName="cy" from="90" to="190" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+                            <animateTransform attributeName="transform" type="rotate" from="0 160 100" to="-360 160 100" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                    
+                    <!-- 修复完成闪光 -->
+                    <g id="heal-flash">
+                        <circle cx="160" cy="150" r="10" fill="#86efac" opacity="0">
+                            <animate attributeName="r" from="10" to="40" dur="1s" begin="2s;5s" />
+                            <animate attributeName="opacity" values="0;0.8;0" dur="1s" begin="2s;5s" />
+                        </circle>
+                    </g>
+                    
+                    <!-- 十字光 -->
+                    <g transform="translate(160,150)">
+                        <rect x="-2" y="-20" width="4" height="40" fill="#86efac" opacity="0">
+                            <animate attributeName="opacity" values="0;1;0" dur="1s" begin="2s;5s" />
+                        </rect>
+                        <rect x="-20" y="-2" width="40" height="4" fill="#86efac" opacity="0">
+                            <animate attributeName="opacity" values="0;1;0" dur="1s" begin="2s;5s" />
+                        </rect>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

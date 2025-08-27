@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户界面元素资源</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #a78bfa 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        h1, h2 {
+            color: #e2e8f0;
+            text-align: center;
+        }
+        .ui-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .ui-card {
+            background: #334155;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 1px solid #475569;
+        }
+        .ui-card h3 {
+            color: #f1f5f9;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            background: #0f172a;
+            border-radius: 5px;
+        }
+        .full-width {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>游戏界面元素资源库</h1>
+        
+        <h2>HUD元素</h2>
+        <div class="ui-grid">
+            
+            <!-- 太阳能显示器 -->
+            <div class="ui-card">
+                <h3>太阳能资源显示</h3>
+                <svg width="320" height="120" viewBox="0 0 320 120">
+                    <defs>
+                        <linearGradient id="sunEnergyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 背景框 -->
+                    <rect x="10" y="20" width="300" height="80" rx="10" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                    
+                    <!-- 太阳图标 -->
+                    <g transform="translate(40,60)">
+                        <circle cx="0" cy="0" r="15" fill="#fbbf24"/>
+                        <g id="sun-rays">
+                            <line x1="0" y1="-22" x2="0" y2="-30" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="15.5" y1="-15.5" x2="21" y2="-21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="22" y1="0" x2="30" y2="0" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="15.5" y1="15.5" x2="21" y2="21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="0" y1="22" x2="0" y2="30" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="-15.5" y1="15.5" x2="-21" y2="21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="-22" y1="0" x2="-30" y2="0" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="-15.5" y1="-15.5" x2="-21" y2="-21" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+                        </g>
+                        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="20s" repeatCount="indefinite" additive="sum"/>
+                    </g>
+                    
+                    <!-- 能量条背景 -->
+                    <rect x="80" y="45" width="200" height="30" rx="15" fill="#0f172a"/>
+                    
+                    <!-- 能量条填充 -->
+                    <rect x="85" y="50" width="150" height="20" rx="10" fill="url(#sunEnergyGrad)">
+                        <animate attributeName="width" values="150;180;150" dur="3s" repeatCount="indefinite"/>
+                    </rect>
+                    
+                    <!-- 数值显示 -->
+                    <text x="180" y="65" text-anchor="middle" fill="#fef3c7" font-size="16" font-weight="bold">750 / 1000</text>
+                </svg>
+            </div>
+            
+            <!-- 波次指示器 -->
+            <div class="ui-card">
+                <h3>波次进度</h3>
+                <svg width="320" height="120" viewBox="0 0 320 120">
+                    <defs>
+                        <linearGradient id="waveProgressGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#dc2626;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#ef4444;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#f87171;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 背景框 -->
+                    <rect x="10" y="20" width="300" height="80" rx="10" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                    
+                    <!-- 波次标题 -->
+                    <text x="160" y="40" text-anchor="middle" fill="#f1f5f9" font-size="14" font-weight="bold">第 3 波 / 共 5 波</text>
+                    
+                    <!-- 进度条背景 -->
+                    <rect x="30" y="50" width="260" height="8" rx="4" fill="#0f172a"/>
+                    
+                    <!-- 进度条填充 -->
+                    <rect x="30" y="50" width="156" height="8" rx="4" fill="url(#waveProgressGrad)"/>
+                    
+                    <!-- 波次标记 -->
+                    <g id="wave-markers">
+                        <circle cx="82" cy="54" r="6" fill="#22c55e" stroke="#16a34a" stroke-width="2"/>
+                        <circle cx="134" cy="54" r="6" fill="#22c55e" stroke="#16a34a" stroke-width="2"/>
+                        <circle cx="186" cy="54" r="6" fill="#fbbf24" stroke="#d97706" stroke-width="2">
+                            <animate attributeName="r" values="6;8;6" dur="1s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="238" cy="54" r="6" fill="#6b7280" stroke="#4b5563" stroke-width="2"/>
+                        <circle cx="290" cy="54" r="6" fill="#6b7280" stroke="#4b5563" stroke-width="2"/>
+                    </g>
+                    
+                    <!-- 敌人数量 -->
+                    <text x="160" y="85" text-anchor="middle" fill="#a1a1aa" font-size="12">剩余敌人: 12 / 30</text>
+                </svg>
+            </div>
+            
+            <!-- 生命值显示 -->
+            <div class="ui-card">
+                <h3>防线生命值</h3>
+                <svg width="320" height="120" viewBox="0 0 320 120">
+                    <defs>
+                        <linearGradient id="healthGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 背景框 -->
+                    <rect x="10" y="20" width="300" height="80" rx="10" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                    
+                    <!-- 心形图标 -->
+                    <g transform="translate(40,60)">
+                        <path d="M 0,10 C -10,-5 -30,-5 -30,5 C -30,15 -20,25 0,35 C 20,25 30,15 30,5 C 30,-5 10,-5 0,10 Z" 
+                              fill="#ef4444" transform="scale(0.8)">
+                            <animate attributeName="transform" values="scale(0.8);scale(0.9);scale(0.8)" dur="1s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                    
+                    <!-- 生命格子 -->
+                    <g id="health-blocks">
+                        <rect x="80" y="45" width="35" height="30" rx="5" fill="#ef4444" stroke="#dc2626" stroke-width="2"/>
+                        <rect x="120" y="45" width="35" height="30" rx="5" fill="#ef4444" stroke="#dc2626" stroke-width="2"/>
+                        <rect x="160" y="45" width="35" height="30" rx="5" fill="#ef4444" stroke="#dc2626" stroke-width="2"/>
+                        <rect x="200" y="45" width="35" height="30" rx="5" fill="#6b7280" stroke="#4b5563" stroke-width="2"/>
+                        <rect x="240" y="45" width="35" height="30" rx="5" fill="#6b7280" stroke="#4b5563" stroke-width="2"/>
+                    </g>
+                    
+                    <!-- 数值显示 -->
+                    <text x="177" y="65" text-anchor="middle" fill="#f1f5f9" font-size="20" font-weight="bold">3 / 5</text>
+                </svg>
+            </div>
+            
+            <!-- 游戏速度控制 -->
+            <div class="ui-card">
+                <h3>游戏速度控制</h3>
+                <svg width="320" height="120" viewBox="0 0 320 120">
+                    <!-- 背景框 -->
+                    <rect x="10" y="20" width="300" height="80" rx="10" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+                    
+                    <!-- 暂停按钮 -->
+                    <g id="pause-btn" transform="translate(60,60)">
+                        <circle cx="0" cy="0" r="25" fill="#475569" stroke="#6b7280" stroke-width="2"/>
+                        <rect x="-8" y="-12" width="5" height="24" fill="#e2e8f0"/>
+                        <rect x="3" y="-12" width="5" height="24" fill="#e2e8f0"/>
+                    </g>
+                    
+                    <!-- 1x速度 -->
+                    <g id="1x-speed" transform="translate(120,60)">
+                        <circle cx="0" cy="0" r="25" fill="#22c55e" stroke="#16a34a" stroke-width="2"/>
+                        <text x="0" y="5" text-anchor="middle" fill="#f0fdf4" font-size="16" font-weight="bold">1×</text>
+                    </g>
+                    
+                    <!-- 2x速度 -->
+                    <g id="2x-speed" transform="translate(180,60)">
+                        <circle cx="0" cy="0" r="25" fill="#475569" stroke="#6b7280" stroke-width="2"/>
+                        <text x="0" y="5" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="bold">2×</text>
+                    </g>
+                    
+                    <!-- 3x速度 -->
+                    <g id="3x-speed" transform="translate(240,60)">
+                        <circle cx="0" cy="0" r="25" fill="#475569" stroke="#6b7280" stroke-width="2"/>
+                        <text x="0" y="5" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="bold">3×</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        
+        <h2>单位选择面板</h2>
+        <div class="ui-grid">
+            
+            <!-- 单位卡片 -->
+            <div class="ui-card full-width">
+                <h3>单位选择卡片</h3>
+                <svg width="700" height="400" viewBox="0 0 700 400">
+                    <!-- 卡片网格 -->
+                    <g id="unit-cards">
+                        <!-- 坦克卡片 -->
+                        <g transform="translate(20,20)">
+                            <rect x="0" y="0" width="150" height="180" rx="10" fill="#334155" stroke="#475569" stroke-width="2"/>
+                            <rect x="10" y="10" width="130" height="80" rx="5" fill="#1e293b"/>
+                            <!-- 坦克图标 -->
+                            <rect x="40" y="35" width="70" height="30" rx="5" fill="#64748b"/>
+                            <ellipse cx="75" cy="35" rx="25" ry="15" fill="#4a5568"/>
+                            <rect x="80" y="30" width="40" height="8" fill="#2d3748"/>
+                            <!-- 信息 -->
+                            <text x="75" y="110" text-anchor="middle" fill="#f1f5f9" font-size="14" font-weight="bold">重型坦克</text>
+                            <text x="75" y="130" text-anchor="middle" fill="#fbbf24" font-size="12">☀ 200</text>
+                            <!-- 属性条 -->
+                            <rect x="15" y="145" width="120" height="8" rx="4" fill="#0f172a"/>
+                            <rect x="15" y="145" width="100" height="8" rx="4" fill="#ef4444"/>
+                            <rect x="15" y="158" width="120" height="8" rx="4" fill="#0f172a"/>
+                            <rect x="15" y="158" width="60" height="8" rx="4" fill="#3b82f6"/>
+                        </g>
+                        
+                        <!-- 飞机卡片 -->
+                        <g transform="translate(190,20)">
+                            <rect x="0" y="0" width="150" height="180" rx="10" fill="#334155" stroke="#475569" stroke-width="2"/>
+                            <rect x="10" y="10" width="130" height="80" rx="5" fill="#1e293b"/>
+                            <!-- 飞机图标 -->
+                            <ellipse cx="75" cy="50" rx="40" ry="12" fill="#818cf8"/>
+                            <polygon points="55,45 35,30 40,35 55,50" fill="#6366f1"/>
+                            <polygon points="95,45 115,30 110,35 95,50" fill="#6366f1"/>
+                            <!-- 信息 -->
+                            <text x="75" y="110" text-anchor="middle" fill="#f1f5f9" font-size="14" font-weight="bold">战斗机</text>
+                            <text x="75" y="130" text-anchor="middle" fill="#fbbf24" font-size="12">☀ 150</text>
+                            <!-- 属性条 -->
+                            <rect x="15" y="145" width="120" height="8" rx="4" fill="#0f172a"/>
+                            <rect x="15" y="145" width="70" height="8" rx="4" fill="#ef4444"/>
+                            <rect x="15" y="158" width="120" height="8" rx="4" fill="#0f172a"/>
+                            <rect x="15" y="158" width="110" height="8" rx="4" fill="#3b82f6"/>
+                        </g>
+                        
+                        <!-- 火炮卡片 -->
+                        <g transform="translate(360,20)">
+                            <rect x="0" y="0" width="150" height="180" rx="10" fill="#334155" stroke="#475569" stroke-width="2"/>
+                            <rect x="10" y="10" width="130" height="80" rx="5" fill="#1e293b"/>
+                            <!-- 火炮图标 -->
+                            <rect x="35" y="60" width="80" height="10" rx="2" fill="#9f7aea"/>
+                            <polygon points="35,55 50,40 90,40 105,55" fill="#6b46c1"/>
+                            <rect x="50" y="70" width="8" height="15" fill="#4a5568"/>
+                            <rect x="92" y="70" width="8" height="15" fill="#4a5568"/>
+                            <!-- 信息 -->
+                            <text x="75" y="110" text-anchor="middle" fill="#f1f5f9" font-size="14" font-weight="bold">榴弹炮</text>
+                            <text x="75" y="130" text-anchor="middle" fill="#fbbf24" font-size="12">☀ 250</text>
+                            <!-- 属性条 -->
+                            <rect x="15" y="145" width="120" height="8" rx="4" fill="#0f172a"/>
+                            <rect x="15" y="145" width="110" height="8" rx="4" fill="#ef4444"/>
+                            <rect x="15" y="158" width="120" height="8" rx="4" fill="#0f172a"/>
+                            <rect x="15" y="158" width="40" height="8" rx="4" fill="#3b82f6"/>
+                        </g>
+                        
+                        <!-- 军舰卡片（锁定状态） -->
+                        <g transform="translate(530,20)">
+                            <rect x="0" y="0" width="150" height="180" rx="10" fill="#1e293b" stroke="#374151" stroke-width="2" opacity="0.6"/>
+                            <rect x="10" y="10" width="130" height="80" rx="5" fill="#0f172a" opacity="0.6"/>
+                            <!-- 锁图标 -->
+                            <g transform="translate(75,50)">
+                                <rect x="-15" y="-5" width="30" height="25" rx="3" fill="#6b7280"/>
+                                <path d="M -10,-5 L -10,-15 Q 0,-25 10,-15 L 10,-5" stroke="#6b7280" stroke-width="4" fill="none"/>
+                                <circle cx="0" cy="7" r="3" fill="#1e293b"/>
+                            </g>
+                            <!-- 信息 -->
+                            <text x="75" y="110" text-anchor="middle" fill="#6b7280" font-size="14" font-weight="bold">战列舰</text>
+                            <text x="75" y="130" text-anchor="middle" fill="#6b7280" font-size="12">需要解锁</text>
+                            <text x="75" y="165" text-anchor="middle" fill="#a78bfa" font-size="11">第10关解锁</text>
+                        </g>
+                    </g>
+                    
+                    <!-- 底部信息栏 -->
+                    <rect x="20" y="220" width="660" height="160" rx="10" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                    
+                    <!-- 选中单位详情 -->
+                    <g id="selected-unit-info">
+                        <text x="40" y="250" fill="#f1f5f9" font-size="18" font-weight="bold">重型坦克 "铁壁"</text>
+                        <text x="40" y="275" fill="#a1a1aa" font-size="14">高防御、高血量的前线单位</text>
+                        
+                        <!-- 属性详情 -->
+                        <g transform="translate(40,290)">
+                            <text x="0" y="15" fill="#ef4444" font-size="12">攻击力: ████████░░</text>
+                            <text x="0" y="35" fill="#3b82f6" font-size="12">射程: ████░░░░░░</text>
+                            <text x="0" y="55" fill="#22c55e" font-size="12">防御: ██████████</text>
+                            
+                            <text x="200" y="15" fill="#a78bfa" font-size="12">速度: ███░░░░░░░</text>
+                            <text x="200" y="35" fill="#fbbf24" font-size="12">成本: ████░░░░░░</text>
+                            <text x="200" y="55" fill="#06b6d4" font-size="12">冷却: ██████░░░░</text>
+                        </g>
+                        
+                        <!-- 部署按钮 -->
+                        <g transform="translate(500,310)">
+                            <rect x="0" y="0" width="160" height="50" rx="25" fill="#22c55e" stroke="#16a34a" stroke-width="2"/>
+                            <text x="80" y="32" text-anchor="middle" fill="white" font-size="18" font-weight="bold">部署单位</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        
+        <h2>游戏菜单</h2>
+        <div class="ui-grid">
+            
+            <!-- 主菜单 -->
+            <div class="ui-card">
+                <h3>主菜单界面</h3>
+                <svg width="320" height="400" viewBox="0 0 320 400">
+                    <!-- 背景 -->
+                    <rect x="0" y="0" width="320" height="400" fill="#0f172a"/>
+                    
+                    <!-- 游戏logo -->
+                    <text x="160" y="80" text-anchor="middle" fill="#fbbf24" font-size="24" font-weight="bold">机械军团</text>
+                    <text x="160" y="110" text-anchor="middle" fill="#a78bfa" font-size="20">VS</text>
+                    <text x="160" y="140" text-anchor="middle" fill="#dc2626" font-size="24" font-weight="bold">史莱姆</text>
+                    
+                    <!-- 菜单按钮 -->
+                    <g id="menu-buttons">
+                        <!-- 开始游戏 -->
+                        <rect x="60" y="180" width="200" height="50" rx="25" fill="#22c55e" stroke="#16a34a" stroke-width="2"/>
+                        <text x="160" y="210" text-anchor="middle" fill="white" font-size="18" font-weight="bold">开始游戏</text>
+                        
+                        <!-- 继续游戏 -->
+                        <rect x="60" y="240" width="200" height="50" rx="25" fill="#3b82f6" stroke="#2563eb" stroke-width="2"/>
+                        <text x="160" y="270" text-anchor="middle" fill="white" font-size="18" font-weight="bold">继续游戏</text>
+                        
+                        <!-- 设置 -->
+                        <rect x="60" y="300" width="200" height="50" rx="25" fill="#6b7280" stroke="#4b5563" stroke-width="2"/>
+                        <text x="160" y="330" text-anchor="middle" fill="white" font-size="18" font-weight="bold">游戏设置</text>
+                    </g>
+                    
+                    <!-- 版本信息 -->
+                    <text x="160" y="380" text-anchor="middle" fill="#6b7280" font-size="12">v3.0 深渊挑战</text>
+                </svg>
+            </div>
+            
+            <!-- 暂停菜单 -->
+            <div class="ui-card">
+                <h3>暂停菜单</h3>
+                <svg width="320" height="400" viewBox="0 0 320 400">
+                    <!-- 半透明背景 -->
+                    <rect x="0" y="0" width="320" height="400" fill="#0f172a" opacity="0.9"/>
+                    
+                    <!-- 菜单面板 -->
+                    <rect x="40" y="80" width="240" height="240" rx="15" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                    
+                    <!-- 标题 -->
+                    <text x="160" y="120" text-anchor="middle" fill="#f1f5f9" font-size="20" font-weight="bold">游戏已暂停</text>
+                    
+                    <!-- 按钮 -->
+                    <g id="pause-menu-buttons">
+                        <!-- 继续 -->
+                        <rect x="70" y="150" width="180" height="40" rx="20" fill="#22c55e" stroke="#16a34a" stroke-width="2"/>
+                        <text x="160" y="175" text-anchor="middle" fill="white" font-size="16" font-weight="bold">继续游戏</text>
+                        
+                        <!-- 重新开始 -->
+                        <rect x="70" y="200" width="180" height="40" rx="20" fill="#f59e0b" stroke="#d97706" stroke-width="2"/>
+                        <text x="160" y="225" text-anchor="middle" fill="white" font-size="16" font-weight="bold">重新开始</text>
+                        
+                        <!-- 返回主菜单 -->
+                        <rect x="70" y="250" width="180" height="40" rx="20" fill="#ef4444" stroke="#dc2626" stroke-width="2"/>
+                        <text x="160" y="275" text-anchor="middle" fill="white" font-size="16" font-weight="bold">返回主菜单</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- 胜利界面 -->
+            <div class="ui-card">
+                <h3>胜利界面</h3>
+                <svg width="320" height="400" viewBox="0 0 320 400">
+                    <!-- 背景 -->
+                    <rect x="0" y="0" width="320" height="400" fill="#0f172a"/>
+                    
+                    <!-- 光芒效果 -->
+                    <g transform="translate(160,100)" opacity="0.6">
+                        <line x1="0" y1="0" x2="0" y2="-50" stroke="#fbbf24" stroke-width="3"/>
+                        <line x1="0" y1="0" x2="35" y2="-35" stroke="#fbbf24" stroke-width="3"/>
+                        <line x1="0" y1="0" x2="50" y2="0" stroke="#fbbf24" stroke-width="3"/>
+                        <line x1="0" y1="0" x2="35" y2="35" stroke="#fbbf24" stroke-width="3"/>
+                        <line x1="0" y1="0" x2="0" y2="50" stroke="#fbbf24" stroke-width="3"/>
+                        <line x1="0" y1="0" x2="-35" y2="35" stroke="#fbbf24" stroke-width="3"/>
+                        <line x1="0" y1="0" x2="-50" y2="0" stroke="#fbbf24" stroke-width="3"/>
+                        <line x1="0" y1="0" x2="-35" y2="-35" stroke="#fbbf24" stroke-width="3"/>
+                        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="10s" repeatCount="indefinite" additive="sum"/>
+                    </g>
+                    
+                    <!-- 胜利文字 -->
+                    <text x="160" y="100" text-anchor="middle" fill="#fbbf24" font-size="36" font-weight="bold">胜利！</text>
+                    
+                    <!-- 星级评价 -->
+                    <g transform="translate(160,150)">
+                        <polygon points="0,-20 6,-6 20,-4 10,6 12,20 0,13 -12,20 -10,6 -20,-4 -6,-6" fill="#fbbf24" transform="translate(-50,0)"/>
+                        <polygon points="0,-20 6,-6 20,-4 10,6 12,20 0,13 -12,20 -10,6 -20,-4 -6,-6" fill="#fbbf24"/>
+                        <polygon points="0,-20 6,-6 20,-4 10,6 12,20 0,13 -12,20 -10,6 -20,-4 -6,-6" fill="#fbbf24" transform="translate(50,0)"/>
+                    </g>
+                    
+                    <!-- 统计信息 -->
+                    <rect x="40" y="200" width="240" height="120" rx="10" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                    <text x="160" y="230" text-anchor="middle" fill="#f1f5f9" font-size="14">关卡完成时间: 4:32</text>
+                    <text x="160" y="255" text-anchor="middle" fill="#f1f5f9" font-size="14">消灭敌人: 156</text>
+                    <text x="160" y="280" text-anchor="middle" fill="#f1f5f9" font-size="14">剩余生命: 5/5</text>
+                    <text x="160" y="305" text-anchor="middle" fill="#fbbf24" font-size="14">获得太阳能: +500</text>
+                    
+                    <!-- 按钮 -->
+                    <rect x="60" y="340" width="200" height="40" rx="20" fill="#22c55e" stroke="#16a34a" stroke-width="2"/>
+                    <text x="160" y="365" text-anchor="middle" fill="white" font-size="16" font-weight="bold">下一关</text>
+                </svg>
+            </div>
+            
+            <!-- 失败界面 -->
+            <div class="ui-card">
+                <h3>失败界面</h3>
+                <svg width="320" height="400" viewBox="0 0 320 400">
+                    <!-- 背景 -->
+                    <rect x="0" y="0" width="320" height="400" fill="#0f172a"/>
+                    
+                    <!-- 失败文字 -->
+                    <text x="160" y="100" text-anchor="middle" fill="#ef4444" font-size="36" font-weight="bold">失败</text>
+                    
+                    <!-- 失败原因 -->
+                    <rect x="40" y="140" width="240" height="60" rx="10" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                    <text x="160" y="165" text-anchor="middle" fill="#f87171" font-size="14">防线被突破！</text>
+                    <text x="160" y="185" text-anchor="middle" fill="#a1a1aa" font-size="12">史莱姆军团攻破了你的防御</text>
+                    
+                    <!-- 统计信息 -->
+                    <rect x="40" y="220" width="240" height="100" rx="10" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                    <text x="160" y="250" text-anchor="middle" fill="#f1f5f9" font-size="14">坚持时间: 3:45</text>
+                    <text x="160" y="275" text-anchor="middle" fill="#f1f5f9" font-size="14">消灭敌人: 98</text>
+                    <text x="160" y="300" text-anchor="middle" fill="#f1f5f9" font-size="14">最高波次: 第4波</text>
+                    
+                    <!-- 按钮 -->
+                    <g id="fail-buttons">
+                        <rect x="60" y="340" width="90" height="40" rx="20" fill="#f59e0b" stroke="#d97706" stroke-width="2"/>
+                        <text x="105" y="365" text-anchor="middle" fill="white" font-size="14" font-weight="bold">重试</text>
+                        
+                        <rect x="170" y="340" width="90" height="40" rx="20" fill="#6b7280" stroke="#4b5563" stroke-width="2"/>
+                        <text x="215" y="365" text-anchor="middle" fill="white" font-size="14" font-weight="bold">退出</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        
+        <h2>升级界面</h2>
+        <div class="ui-grid">
+            
+            <!-- 单位升级面板 -->
+            <div class="ui-card full-width">
+                <h3>单位升级系统</h3>
+                <svg width="700" height="300" viewBox="0 0 700 300">
+                    <!-- 背景面板 -->
+                    <rect x="10" y="10" width="680" height="280" rx="15" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                    
+                    <!-- 单位展示区 -->
+                    <rect x="30" y="30" width="150" height="150" rx="10" fill="#0f172a"/>
+                    <!-- 坦克图标 -->
+                    <rect x="65" y="85" width="80" height="40" rx="5" fill="#64748b"/>
+                    <ellipse cx="105" cy="85" rx="35" ry="20" fill="#4a5568"/>
+                    <rect x="110" y="78" width="50" height="10" fill="#2d3748"/>
+                    
+                    <!-- 单位名称和等级 -->
+                    <text x="105" y="205" text-anchor="middle" fill="#f1f5f9" font-size="16" font-weight="bold">重型坦克</text>
+                    <text x="105" y="225" text-anchor="middle" fill="#fbbf24" font-size="14">等级 2 → 3</text>
+                    
+                    <!-- 升级路径 -->
+                    <g id="upgrade-tree">
+                        <!-- 基础属性升级 -->
+                        <g transform="translate(220,50)">
+                            <rect x="0" y="0" width="140" height="60" rx="10" fill="#334155" stroke="#22c55e" stroke-width="2"/>
+                            <text x="70" y="25" text-anchor="middle" fill="#f1f5f9" font-size="14" font-weight="bold">装甲强化</text>
+                            <text x="70" y="45" text-anchor="middle" fill="#86efac" font-size="12">防御 +20%</text>
+                        </g>
+                        
+                        <!-- 武器升级 -->
+                        <g transform="translate(220,130)">
+                            <rect x="0" y="0" width="140" height="60" rx="10" fill="#334155" stroke="#475569" stroke-width="2"/>
+                            <text x="70" y="25" text-anchor="middle" fill="#f1f5f9" font-size="14" font-weight="bold">火力升级</text>
+                            <text x="70" y="45" text-anchor="middle" fill="#ef4444" font-size="12">攻击 +15%</text>
+                        </g>
+                        
+                        <!-- 特殊能力 -->
+                        <g transform="translate(220,210)">
+                            <rect x="0" y="0" width="140" height="60" rx="10" fill="#334155" stroke="#475569" stroke-width="2" opacity="0.5"/>
+                            <text x="70" y="25" text-anchor="middle" fill="#6b7280" font-size="14" font-weight="bold">自动修复</text>
+                            <text x="70" y="45" text-anchor="middle" fill="#6b7280" font-size="12">需要等级5</text>
+                        </g>
+                        
+                        <!-- 连接线 -->
+                        <line x1="180" y1="105" x2="220" y2="80" stroke="#475569" stroke-width="2"/>
+                        <line x1="180" y1="105" x2="220" y2="160" stroke="#475569" stroke-width="2"/>
+                        <line x1="180" y1="105" x2="220" y2="240" stroke="#475569" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+                    </g>
+                    
+                    <!-- 升级成本和按钮 -->
+                    <g transform="translate(400,100)">
+                        <rect x="0" y="0" width="280" height="100" rx="10" fill="#0f172a"/>
+                        <text x="140" y="30" text-anchor="middle" fill="#f1f5f9" font-size="16" font-weight="bold">升级需求</text>
+                        <text x="140" y="55" text-anchor="middle" fill="#fbbf24" font-size="14">☀ 太阳能: 500</text>
+                        <text x="140" y="75" text-anchor="middle" fill="#a78bfa" font-size="14">✦ 科技点: 3</text>
+                        
+                        <!-- 升级按钮 -->
+                        <rect x="60" y="110" width="160" height="40" rx="20" fill="#22c55e" stroke="#16a34a" stroke-width="2"/>
+                        <text x="140" y="135" text-anchor="middle" fill="white" font-size="16" font-weight="bold">确认升级</text>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

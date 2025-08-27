@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>战场环境资源</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1, h2 {
+            color: #1e293b;
+            text-align: center;
+        }
+        .bg-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        .bg-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        .bg-card h3 {
+            color: #334155;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>战场环境资源库</h1>
+        
+        <div class="bg-grid">
+            
+            <!-- 草原防线 -->
+            <div class="bg-card">
+                <h3>草原防线</h3>
+                <svg width="1200" height="400" viewBox="0 0 1200 400">
+                    <defs>
+                        <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#dbeafe;stop-opacity:1" />
+                            <stop offset="60%" style="stop-color:#93c5fd;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="grassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#86efac;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#4ade80;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#22c55e;stop-opacity:1" />
+                        </linearGradient>
+                        <pattern id="gridPattern" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+                            <rect width="80" height="80" fill="none" stroke="#16a34a" stroke-width="1" opacity="0.3"/>
+                        </pattern>
+                        <filter id="cloudBlur">
+                            <feGaussianBlur stdDeviation="2"/>
+                        </filter>
+                    </defs>
+                    
+                    <!-- 天空 -->
+                    <rect x="0" y="0" width="1200" height="250" fill="url(#skyGrad)"/>
+                    
+                    <!-- 云朵 -->
+                    <g id="clouds" opacity="0.8">
+                        <ellipse cx="200" cy="80" rx="60" ry="30" fill="white" filter="url(#cloudBlur)"/>
+                        <ellipse cx="180" cy="85" rx="40" ry="25" fill="white" filter="url(#cloudBlur)"/>
+                        <ellipse cx="230" cy="85" rx="45" ry="25" fill="white" filter="url(#cloudBlur)"/>
+                        
+                        <ellipse cx="500" cy="60" rx="70" ry="35" fill="white" filter="url(#cloudBlur)"/>
+                        <ellipse cx="470" cy="65" rx="50" ry="30" fill="white" filter="url(#cloudBlur)"/>
+                        
+                        <ellipse cx="900" cy="100" rx="55" ry="28" fill="white" filter="url(#cloudBlur)"/>
+                        <ellipse cx="930" cy="105" rx="45" ry="23" fill="white" filter="url(#cloudBlur)"/>
+                    </g>
+                    
+                    <!-- 太阳 -->
+                    <circle cx="1000" cy="100" r="40" fill="#fbbf24" opacity="0.9"/>
+                    <circle cx="1000" cy="100" r="45" fill="#fde047" opacity="0.4"/>
+                    
+                    <!-- 远山 -->
+                    <polygon points="0,250 200,180 400,210 600,170 800,200 1000,160 1200,190 1200,250" 
+                             fill="#94a3b8" opacity="0.6"/>
+                    
+                    <!-- 草地 -->
+                    <rect x="0" y="250" width="1200" height="150" fill="url(#grassGrad)"/>
+                    
+                    <!-- 部署网格 -->
+                    <rect x="0" y="250" width="1200" height="150" fill="url(#gridPattern)"/>
+                    
+                    <!-- 机械防线基地 -->
+                    <g id="base">
+                        <!-- 指挥中心 -->
+                        <rect x="50" y="200" width="100" height="80" rx="5" fill="#64748b"/>
+                        <rect x="60" y="210" width="80" height="60" fill="#475569"/>
+                        <rect x="75" y="180" width="50" height="30" fill="#64748b"/>
+                        <rect x="90" y="170" width="20" height="15" fill="#ef4444"/>
+                        
+                        <!-- 天线 -->
+                        <line x1="100" y1="170" x2="100" y2="150" stroke="#1e293b" stroke-width="2"/>
+                        <circle cx="100" cy="150" r="3" fill="#ef4444"/>
+                        
+                        <!-- 窗户 -->
+                        <rect x="70" y="225" width="15" height="15" fill="#38bdf8" opacity="0.7"/>
+                        <rect x="95" y="225" width="15" height="15" fill="#38bdf8" opacity="0.7"/>
+                        <rect x="120" y="225" width="15" height="15" fill="#38bdf8" opacity="0.7"/>
+                        
+                        <!-- 大门 -->
+                        <rect x="85" y="250" width="30" height="30" fill="#1e293b"/>
+                    </g>
+                    
+                    <!-- 防御塔 -->
+                    <g id="defense-tower">
+                        <rect x="200" y="220" width="40" height="60" fill="#6b7280"/>
+                        <polygon points="200,220 220,200 240,220" fill="#4b5563"/>
+                        <rect x="215" y="205" width="10" height="20" fill="#1e293b"/>
+                        <circle cx="220" cy="215" r="8" fill="#dc2626" opacity="0.8"/>
+                    </g>
+                    
+                    <!-- 装饰性草丛 -->
+                    <g id="grass-details">
+                        <path d="M 100 280 Q 95 270, 100 275 Q 105 270, 100 280" fill="#16a34a" opacity="0.7"/>
+                        <path d="M 110 285 Q 105 275, 110 280 Q 115 275, 110 285" fill="#16a34a" opacity="0.7"/>
+                        <path d="M 300 290 Q 295 280, 300 285 Q 305 280, 300 290" fill="#16a34a" opacity="0.7"/>
+                        <path d="M 500 275 Q 495 265, 500 270 Q 505 265, 500 275" fill="#16a34a" opacity="0.7"/>
+                        <path d="M 700 285 Q 695 275, 700 280 Q 705 275, 700 285" fill="#16a34a" opacity="0.7"/>
+                        <path d="M 900 280 Q 895 270, 900 275 Q 905 270, 900 280" fill="#16a34a" opacity="0.7"/>
+                    </g>
+                    
+                    <!-- 深渊裂隙（右侧） -->
+                    <g id="abyss-rift">
+                        <ellipse cx="1100" cy="300" rx="80" ry="120" fill="#4c1d95" opacity="0.8"/>
+                        <ellipse cx="1100" cy="300" rx="60" ry="100" fill="#7c3aed" opacity="0.6"/>
+                        <ellipse cx="1100" cy="300" rx="40" ry="80" fill="#a78bfa" opacity="0.4"/>
+                        
+                        <!-- 裂隙能量 -->
+                        <g opacity="0.6">
+                            <path d="M 1060 250 L 1070 240 L 1060 230" stroke="#e9d5ff" stroke-width="2" fill="none">
+                                <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M 1140 250 L 1130 240 L 1140 230" stroke="#e9d5ff" stroke-width="2" fill="none">
+                                <animate attributeName="opacity" values="0;1;0" dur="2s" begin="1s" repeatCount="indefinite"/>
+                            </path>
+                        </g>
+                    </g>
+                    
+                    <!-- 战斗痕迹 -->
+                    <g id="battle-marks" opacity="0.5">
+                        <ellipse cx="400" cy="320" rx="30" ry="10" fill="#713f12"/>
+                        <ellipse cx="600" cy="310" rx="25" ry="8" fill="#713f12"/>
+                        <ellipse cx="800" cy="330" rx="35" ry="12" fill="#713f12"/>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- 冰封峡谷 -->
+            <div class="bg-card">
+                <h3>冰封峡谷</h3>
+                <svg width="1200" height="400" viewBox="0 0 1200 400">
+                    <defs>
+                        <linearGradient id="winterSkyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#e0e7ff;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#c7d2fe;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#a5b4fc;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="iceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#e0f2fe;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#bae6fd;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#7dd3fc;stop-opacity:1" />
+                        </linearGradient>
+                        <pattern id="snowPattern" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+                            <circle cx="5" cy="5" r="2" fill="white" opacity="0.8"/>
+                            <circle cx="20" cy="15" r="1.5" fill="white" opacity="0.7"/>
+                            <circle cx="10" cy="25" r="2" fill="white" opacity="0.9"/>
+                            <circle cx="25" cy="8" r="1" fill="white" opacity="0.6"/>
+                        </pattern>
+                    </defs>
+                    
+                    <!-- 冬日天空 -->
+                    <rect x="0" y="0" width="1200" height="250" fill="url(#winterSkyGrad)"/>
+                    
+                    <!-- 飘雪效果 -->
+                    <g id="snow">
+                        <circle cx="100" cy="50" r="2" fill="white" opacity="0.8">
+                            <animate attributeName="cy" from="50" to="400" dur="8s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="200" cy="30" r="1.5" fill="white" opacity="0.7">
+                            <animate attributeName="cy" from="30" to="400" dur="9s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="350" cy="80" r="2" fill="white" opacity="0.9">
+                            <animate attributeName="cy" from="80" to="400" dur="7s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="500" cy="20" r="1" fill="white" opacity="0.6">
+                            <animate attributeName="cy" from="20" to="400" dur="10s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="650" cy="60" r="2" fill="white" opacity="0.8">
+                            <animate attributeName="cy" from="60" to="400" dur="8s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="800" cy="40" r="1.5" fill="white" opacity="0.7">
+                            <animate attributeName="cy" from="40" to="400" dur="9s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="950" cy="70" r="2" fill="white" opacity="0.9">
+                            <animate attributeName="cy" from="70" to="400" dur="7s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="1100" cy="30" r="1" fill="white" opacity="0.6">
+                            <animate attributeName="cy" from="30" to="400" dur="10s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                    
+                    <!-- 雪山 -->
+                    <polygon points="0,250 150,100 300,250" fill="#e0e7ff"/>
+                    <polygon points="150,100 225,175 300,250 150,250 0,250 75,175" fill="#f0f4f8"/>
+                    
+                    <polygon points="250,250 400,120 550,250" fill="#e0e7ff"/>
+                    <polygon points="400,120 475,195 550,250 400,250 250,250 325,195" fill="#f0f4f8"/>
+                    
+                    <polygon points="500,250 700,80 900,250" fill="#e0e7ff"/>
+                    <polygon points="700,80 800,165 900,250 700,250 500,250 600,165" fill="#f0f4f8"/>
+                    
+                    <polygon points="850,250 1000,140 1150,250" fill="#e0e7ff"/>
+                    <polygon points="1000,140 1075,195 1150,250 1000,250 850,250 925,195" fill="#f0f4f8"/>
+                    
+                    <!-- 冰面 -->
+                    <rect x="0" y="250" width="1200" height="150" fill="url(#iceGrad)"/>
+                    <rect x="0" y="250" width="1200" height="150" fill="url(#snowPattern)" opacity="0.5"/>
+                    
+                    <!-- 冰晶装饰 -->
+                    <g id="ice-crystals">
+                        <polygon points="300,300 310,280 320,300 310,320" fill="#bae6fd" opacity="0.7"/>
+                        <polygon points="500,320 510,300 520,320 510,340" fill="#bae6fd" opacity="0.7"/>
+                        <polygon points="700,310 710,290 720,310 710,330" fill="#bae6fd" opacity="0.7"/>
+                        <polygon points="900,315 910,295 920,315 910,335" fill="#bae6fd" opacity="0.7"/>
+                    </g>
+                    
+                    <!-- 冰封堡垒 -->
+                    <g id="ice-fortress">
+                        <rect x="80" y="180" width="120" height="90" fill="#94a3b8"/>
+                        <polygon points="80,180 140,140 200,180" fill="#64748b"/>
+                        
+                        <!-- 冰柱 -->
+                        <polygon points="85,270 90,250 95,270" fill="#7dd3fc" opacity="0.8"/>
+                        <polygon points="105,270 110,250 115,270" fill="#7dd3fc" opacity="0.8"/>
+                        <polygon points="165,270 170,250 175,270" fill="#7dd3fc" opacity="0.8"/>
+                        <polygon points="185,270 190,250 195,270" fill="#7dd3fc" opacity="0.8"/>
+                        
+                        <!-- 冰冻窗户 -->
+                        <rect x="100" y="200" width="20" height="20" fill="#0ea5e9" opacity="0.5"/>
+                        <rect x="130" y="200" width="20" height="20" fill="#0ea5e9" opacity="0.5"/>
+                        <rect x="160" y="200" width="20" height="20" fill="#0ea5e9" opacity="0.5"/>
+                        
+                        <!-- 大门 -->
+                        <rect x="120" y="230" width="40" height="40" fill="#475569"/>
+                    </g>
+                    
+                    <!-- 冰桥 -->
+                    <g id="ice-bridge">
+                        <rect x="400" y="280" width="400" height="20" fill="#7dd3fc" opacity="0.8"/>
+                        <rect x="400" y="295" width="400" height="5" fill="#0891b2" opacity="0.6"/>
+                        
+                        <!-- 桥柱 -->
+                        <rect x="450" y="280" width="15" height="50" fill="#64748b"/>
+                        <rect x="550" y="280" width="15" height="50" fill="#64748b"/>
+                        <rect x="650" y="280" width="15" height="50" fill="#64748b"/>
+                        <rect x="750" y="280" width="15" height="50" fill="#64748b"/>
+                    </g>
+                    
+                    <!-- 深渊冰裂 -->
+                    <g id="abyss-ice-crack">
+                        <path d="M 1050 250 L 1060 280 L 1055 310 L 1065 340 L 1060 370 L 1070 400" 
+                              stroke="#7c3aed" stroke-width="3" fill="none" opacity="0.8"/>
+                        <path d="M 1080 250 L 1085 270 L 1075 290 L 1080 320 L 1090 350 L 1085 380 L 1095 400" 
+                              stroke="#7c3aed" stroke-width="2" fill="none" opacity="0.6"/>
+                        
+                        <!-- 裂隙光芒 -->
+                        <g opacity="0.5">
+                            <rect x="1055" y="250" width="2" height="150" fill="#e9d5ff">
+                                <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+                            </rect>
+                            <rect x="1083" y="250" width="2" height="150" fill="#e9d5ff">
+                                <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+                            </rect>
+                        </g>
+                    </g>
+                    
+                    <!-- 寒风效果 -->
+                    <g id="wind-effect" opacity="0.3">
+                        <path d="M 0 150 Q 200 140, 400 150 T 800 150 T 1200 150" stroke="white" stroke-width="2" fill="none">
+                            <animate attributeName="d" values="M 0 150 Q 200 140, 400 150 T 800 150 T 1200 150;M 0 155 Q 200 145, 400 155 T 800 155 T 1200 155;M 0 150 Q 200 140, 400 150 T 800 150 T 1200 150" dur="4s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- 海洋战场 -->
+            <div class="bg-card">
+                <h3>海洋战场</h3>
+                <svg width="1200" height="400" viewBox="0 0 1200 400">
+                    <defs>
+                        <linearGradient id="oceanSkyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#fed7aa;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#fdba74;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="oceanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:1" />
+                            <stop offset="30%" style="stop-color:#0284c7;stop-opacity:1" />
+                            <stop offset="60%" style="stop-color:#0369a1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#075985;stop-opacity:1" />
+                        </linearGradient>
+                        <pattern id="wavePattern" x="0" y="0" width="100" height="20" patternUnits="userSpaceOnUse">
+                            <path d="M 0 10 Q 25 0, 50 10 T 100 10" stroke="#0891b2" stroke-width="2" fill="none" opacity="0.5"/>
+                        </pattern>
+                    </defs>
+                    
+                    <!-- 黄昏天空 -->
+                    <rect x="0" y="0" width="1200" height="200" fill="url(#oceanSkyGrad)"/>
+                    
+                    <!-- 夕阳 -->
+                    <circle cx="600" cy="150" r="50" fill="#fb923c"/>
+                    <circle cx="600" cy="150" r="55" fill="#fed7aa" opacity="0.5"/>
+                    
+                    <!-- 云彩 -->
+                    <g id="sunset-clouds" opacity="0.7">
+                        <ellipse cx="200" cy="80" rx="80" ry="30" fill="#fef3c7"/>
+                        <ellipse cx="400" cy="100" rx="100" ry="35" fill="#fef3c7"/>
+                        <ellipse cx="800" cy="90" rx="90" ry="32" fill="#fef3c7"/>
+                        <ellipse cx="1000" cy="70" rx="70" ry="28" fill="#fef3c7"/>
+                    </g>
+                    
+                    <!-- 海洋 -->
+                    <rect x="0" y="200" width="1200" height="200" fill="url(#oceanGrad)"/>
+                    
+                    <!-- 波浪 -->
+                    <g id="waves">
+                        <path d="M 0 220 Q 50 210, 100 220 T 200 220 T 300 220 T 400 220 T 500 220 T 600 220 T 700 220 T 800 220 T 900 220 T 1000 220 T 1100 220 T 1200 220" 
+                              stroke="#0891b2" stroke-width="3" fill="none">
+                            <animate attributeName="d" values="M 0 220 Q 50 210, 100 220 T 200 220 T 300 220 T 400 220 T 500 220 T 600 220 T 700 220 T 800 220 T 900 220 T 1000 220 T 1100 220 T 1200 220;M 0 225 Q 50 215, 100 225 T 200 225 T 300 225 T 400 225 T 500 225 T 600 225 T 700 225 T 800 225 T 900 225 T 1000 225 T 1100 225 T 1200 225;M 0 220 Q 50 210, 100 220 T 200 220 T 300 220 T 400 220 T 500 220 T 600 220 T 700 220 T 800 220 T 900 220 T 1000 220 T 1100 220 T 1200 220" dur="3s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 0 250 Q 60 240, 120 250 T 240 250 T 360 250 T 480 250 T 600 250 T 720 250 T 840 250 T 960 250 T 1080 250 T 1200 250" 
+                              stroke="#0891b2" stroke-width="2" fill="none" opacity="0.7">
+                            <animate attributeName="d" values="M 0 250 Q 60 240, 120 250 T 240 250 T 360 250 T 480 250 T 600 250 T 720 250 T 840 250 T 960 250 T 1080 250 T 1200 250;M 0 255 Q 60 245, 120 255 T 240 255 T 360 255 T 480 255 T 600 255 T 720 255 T 840 255 T 960 255 T 1080 255 T 1200 255;M 0 250 Q 60 240, 120 250 T 240 250 T 360 250 T 480 250 T 600 250 T 720 250 T 840 250 T 960 250 T 1080 250 T 1200 250" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                    
+                    <!-- 海军基地平台 -->
+                    <g id="naval-platform">
+                        <rect x="100" y="180" width="200" height="40" fill="#64748b"/>
+                        <rect x="100" y="210" width="20" height="60" fill="#475569"/>
+                        <rect x="140" y="210" width="20" height="60" fill="#475569"/>
+                        <rect x="180" y="210" width="20" height="60" fill="#475569"/>
+                        <rect x="220" y="210" width="20" height="60" fill="#475569"/>
+                        <rect x="260" y="210" width="20" height="60" fill="#475569"/>
+                        <rect x="280" y="210" width="20" height="60" fill="#475569"/>
+                        
+                        <!-- 指挥塔 -->
+                        <rect x="170" y="140" width="60" height="50" fill="#6b7280"/>
+                        <polygon points="170,140 200,120 230,140" fill="#4b5563"/>
+                        <rect x="190" y="150" width="20" height="15" fill="#0ea5e9" opacity="0.7"/>
+                        
+                        <!-- 雷达 -->
+                        <circle cx="200" cy="115" r="10" fill="#94a3b8"/>
+                        <line x1="200" y1="115" x2="200" y2="100" stroke="#1e293b" stroke-width="2"/>
+                        <line x1="200" y1="115" x2="215" y2="110" stroke="#1e293b" stroke-width="2">
+                            <animateTransform attributeName="transform" type="rotate" from="0 200 115" to="360 200 115" dur="4s" repeatCount="indefinite"/>
+                        </line>
+                    </g>
+                    
+                    <!-- 浮动码头 -->
+                    <g id="floating-dock">
+                        <rect x="400" y="195" width="300" height="15" fill="#713f12"/>
+                        <rect x="400" y="205" width="300" height="5" fill="#92400e"/>
+                        
+                        <!-- 系缆柱 -->
+                        <rect x="420" y="185" width="10" height="25" fill="#475569"/>
+                        <rect x="520" y="185" width="10" height="25" fill="#475569"/>
+                        <rect x="620" y="185" width="10" height="25" fill="#475569"/>
+                    </g>
+                    
+                    <!-- 灯塔 -->
+                    <g id="lighthouse">
+                        <rect x="900" y="140" width="40" height="80" fill="#e2e8f0"/>
+                        <polygon points="900,140 920,120 940,140" fill="#dc2626"/>
+                        <rect x="910" y="125" width="20" height="15" fill="#fbbf24" opacity="0.9">
+                            <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" repeatCount="indefinite"/>
+                        </rect>
+                        
+                        <!-- 条纹 -->
+                        <rect x="900" y="160" width="40" height="10" fill="#dc2626"/>
+                        <rect x="900" y="180" width="40" height="10" fill="#dc2626"/>
+                        <rect x="900" y="200" width="40" height="10" fill="#dc2626"/>
+                    </g>
+                    
+                    <!-- 深渊漩涡 -->
+                    <g id="abyss-whirlpool" opacity="0.7">
+                        <ellipse cx="1050" cy="300" rx="80" ry="40" fill="none" stroke="#7c3aed" stroke-width="3">
+                            <animateTransform attributeName="transform" type="rotate" from="0 1050 300" to="360 1050 300" dur="10s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="1050" cy="300" rx="60" ry="30" fill="none" stroke="#7c3aed" stroke-width="2">
+                            <animateTransform attributeName="transform" type="rotate" from="0 1050 300" to="-360 1050 300" dur="8s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="1050" cy="300" rx="40" ry="20" fill="none" stroke="#7c3aed" stroke-width="1">
+                            <animateTransform attributeName="transform" type="rotate" from="0 1050 300" to="360 1050 300" dur="6s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="1050" cy="300" rx="20" ry="10" fill="#4c1d95" opacity="0.8"/>
+                    </g>
+                    
+                    <!-- 海鸟 -->
+                    <g id="seabirds">
+                        <path d="M 300 80 Q 305 75, 310 80" stroke="#1e293b" stroke-width="2" fill="none"/>
+                        <path d="M 310 80 Q 315 75, 320 80" stroke="#1e293b" stroke-width="2" fill="none"/>
+                        
+                        <path d="M 500 60 Q 505 55, 510 60" stroke="#1e293b" stroke-width="2" fill="none"/>
+                        <path d="M 510 60 Q 515 55, 520 60" stroke="#1e293b" stroke-width="2" fill="none"/>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- 深渊边境 -->
+            <div class="bg-card">
+                <h3>深渊边境</h3>
+                <svg width="1200" height="400" viewBox="0 0 1200 400">
+                    <defs>
+                        <radialGradient id="abyssSkyGrad" cx="50%" cy="50%">
+                            <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#4c1d95;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+                        </radialGradient>
+                        <linearGradient id="abyssGroundGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#581c87;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#4c1d95;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2e1065;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="abyssDistortion">
+                            <feTurbulence baseFrequency="0.01" numOctaves="2" seed="5"/>
+                            <feDisplacementMap in="SourceGraphic" scale="10"/>
+                        </filter>
+                    </defs>
+                    
+                    <!-- 深渊天空 -->
+                    <rect x="0" y="0" width="1200" height="250" fill="url(#abyssSkyGrad)"/>
+                    
+                    <!-- 空间裂痕 -->
+                    <g id="space-tears" opacity="0.8">
+                        <path d="M 200 50 L 210 100 L 205 150 L 215 200" stroke="#e9d5ff" stroke-width="3" fill="none">
+                            <animate attributeName="stroke-width" values="3;5;3" dur="3s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 500 30 L 495 80 L 505 130 L 500 180" stroke="#e9d5ff" stroke-width="2" fill="none">
+                            <animate attributeName="stroke-width" values="2;4;2" dur="3s" begin="1s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 800 70 L 810 120 L 805 170 L 815 220" stroke="#e9d5ff" stroke-width="3" fill="none">
+                            <animate attributeName="stroke-width" values="3;5;3" dur="3s" begin="2s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                    
+                    <!-- 浮动的深渊碎片 -->
+                    <g id="floating-fragments">
+                        <polygon points="300,100 320,90 330,110 310,120" fill="#7c3aed" opacity="0.7">
+                            <animateTransform attributeName="transform" type="translate" values="0,0; 10,-10; 0,0" dur="5s" repeatCount="indefinite"/>
+                        </polygon>
+                        <polygon points="600,80 620,70 630,90 610,100" fill="#7c3aed" opacity="0.6">
+                            <animateTransform attributeName="transform" type="translate" values="0,0; -10,-10; 0,0" dur="6s" repeatCount="indefinite"/>
+                        </polygon>
+                        <polygon points="900,120 920,110 930,130 910,140" fill="#7c3aed" opacity="0.8">
+                            <animateTransform attributeName="transform" type="translate" values="0,0; 15,-15; 0,0" dur="7s" repeatCount="indefinite"/>
+                        </polygon>
+                    </g>
+                    
+                    <!-- 深渊地面 -->
+                    <rect x="0" y="250" width="1200" height="150" fill="url(#abyssGroundGrad)"/>
+                    
+                    <!-- 腐蚀纹理 -->
+                    <g id="corruption-texture" opacity="0.5">
+                        <ellipse cx="150" cy="300" rx="80" ry="30" fill="#2e1065"/>
+                        <ellipse cx="400" cy="320" rx="100" ry="35" fill="#2e1065"/>
+                        <ellipse cx="700" cy="310" rx="90" ry="32" fill="#2e1065"/>
+                        <ellipse cx="1000" cy="330" rx="110" ry="38" fill="#2e1065"/>
+                    </g>
+                    
+                    <!-- 深渊之眼（巨型裂隙） -->
+                    <g id="abyss-eye">
+                        <ellipse cx="600" cy="300" rx="150" ry="80" fill="#0f172a" opacity="0.9"/>
+                        <ellipse cx="600" cy="300" rx="120" ry="65" fill="#2e1065" opacity="0.8"/>
+                        <ellipse cx="600" cy="300" rx="90" ry="50" fill="#4c1d95" opacity="0.7"/>
+                        <ellipse cx="600" cy="300" rx="60" ry="35" fill="#7c3aed" opacity="0.6"/>
+                        <ellipse cx="600" cy="300" rx="30" ry="20" fill="#a78bfa" opacity="0.5">
+                            <animate attributeName="rx" values="30;40;30" dur="4s" repeatCount="indefinite"/>
+                            <animate attributeName="ry" values="20;30;20" dur="4s" repeatCount="indefinite"/>
+                        </ellipse>
+                    </g>
+                    
+                    <!-- 深渊尖塔 -->
+                    <g id="abyss-spires">
+                        <polygon points="100,250 120,150 140,250" fill="#4c1d95" opacity="0.9"/>
+                        <polygon points="250,250 265,180 280,250" fill="#4c1d95" opacity="0.8"/>
+                        <polygon points="900,250 915,170 930,250" fill="#4c1d95" opacity="0.9"/>
+                        <polygon points="1050,250 1070,160 1090,250" fill="#4c1d95" opacity="0.8"/>
+                    </g>
+                    
+                    <!-- 深渊符文 -->
+                    <g id="abyss-runes" opacity="0.6">
+                        <text x="200" y="200" fill="#e9d5ff" font-size="30" font-family="serif">☥</text>
+                        <text x="500" y="180" fill="#e9d5ff" font-size="25" font-family="serif">✦</text>
+                        <text x="800" y="210" fill="#e9d5ff" font-size="35" font-family="serif">⚛</text>
+                        <text x="1000" y="190" fill="#e9d5ff" font-size="28" font-family="serif">✧</text>
+                    </g>
+                    
+                    <!-- 深渊能量流 -->
+                    <g id="energy-streams" opacity="0.4">
+                        <path d="M 0 350 Q 200 330, 400 350 T 800 350 T 1200 350" stroke="#e9d5ff" stroke-width="2" fill="none">
+                            <animate attributeName="d" values="M 0 350 Q 200 330, 400 350 T 800 350 T 1200 350;M 0 355 Q 200 335, 400 355 T 800 355 T 1200 355;M 0 350 Q 200 330, 400 350 T 800 350 T 1200 350" dur="3s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M 0 370 Q 300 355, 600 370 T 1200 370" stroke="#e9d5ff" stroke-width="1" fill="none">
+                            <animate attributeName="d" values="M 0 370 Q 300 355, 600 370 T 1200 370;M 0 375 Q 300 360, 600 375 T 1200 375;M 0 370 Q 300 355, 600 370 T 1200 370" dur="4s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                    
+                    <!-- 防御阵地遗迹 -->
+                    <g id="defense-ruins" opacity="0.7">
+                        <rect x="50" y="220" width="80" height="40" fill="#475569"/>
+                        <polygon points="50,220 70,200 110,200 130,220" fill="#334155"/>
+                        <rect x="65" y="230" width="15" height="20" fill="#1e293b"/>
+                        <rect x="90" y="230" width="15" height="20" fill="#1e293b"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

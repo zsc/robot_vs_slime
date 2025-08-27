@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机械军团单位资源</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        .units-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .unit-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .unit-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>机械军团单位资源库</h1>
+        
+        <h2>陆军单位</h2>
+        <div class="units-grid">
+            
+            <!-- 重型坦克"铁壁" -->
+            <div class="unit-card">
+                <h3>重型坦克"铁壁"</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="tankBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#4a5568;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2d3748;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="tankBarrelGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#718096;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#4a5568;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+                            <feOffset dx="2" dy="2"/>
+                            <feMerge>
+                                <feMergeNode/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    
+                    <!-- 履带 -->
+                    <rect x="60" y="140" width="200" height="35" rx="15" fill="#1a202c" filter="url(#shadow)"/>
+                    <g id="tracks">
+                        <rect x="70" y="145" width="15" height="25" rx="2" fill="#2d3748"/>
+                        <rect x="90" y="145" width="15" height="25" rx="2" fill="#2d3748"/>
+                        <rect x="110" y="145" width="15" height="25" rx="2" fill="#2d3748"/>
+                        <rect x="130" y="145" width="15" height="25" rx="2" fill="#2d3748"/>
+                        <rect x="150" y="145" width="15" height="25" rx="2" fill="#2d3748"/>
+                        <rect x="170" y="145" width="15" height="25" rx="2" fill="#2d3748"/>
+                        <rect x="190" y="145" width="15" height="25" rx="2" fill="#2d3748"/>
+                        <rect x="210" y="145" width="15" height="25" rx="2" fill="#2d3748"/>
+                        <rect x="230" y="145" width="15" height="25" rx="2" fill="#2d3748"/>
+                    </g>
+                    
+                    <!-- 车体 -->
+                    <rect x="70" y="90" width="180" height="60" rx="5" fill="url(#tankBodyGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 装甲板 -->
+                    <rect x="65" y="100" width="10" height="40" fill="#4a5568"/>
+                    <rect x="245" y="100" width="10" height="40" fill="#4a5568"/>
+                    
+                    <!-- 炮塔 -->
+                    <ellipse cx="160" cy="90" rx="65" ry="35" fill="url(#tankBodyGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 主炮 -->
+                    <rect x="180" y="83" width="100" height="14" rx="2" fill="url(#tankBarrelGrad)"/>
+                    <rect x="275" y="85" width="20" height="10" rx="1" fill="#2d3748"/>
+                    
+                    <!-- 机枪 -->
+                    <rect x="120" y="75" width="30" height="6" rx="1" fill="#4a5568"/>
+                    
+                    <!-- 观察窗 -->
+                    <rect x="140" y="75" width="40" height="12" rx="2" fill="#38b2ac" opacity="0.8"/>
+                    
+                    <!-- 天线 -->
+                    <line x1="130" y1="55" x2="130" y2="35" stroke="#4a5568" stroke-width="2"/>
+                    <circle cx="130" cy="35" r="3" fill="#ef4444"/>
+                    
+                    <!-- 排气管 -->
+                    <rect x="75" y="85" width="8" height="15" rx="1" fill="#2d3748"/>
+                    <rect x="85" y="85" width="8" height="15" rx="1" fill="#2d3748"/>
+                </svg>
+            </div>
+            
+            <!-- 轻型坦克"疾风" -->
+            <div class="unit-card">
+                <h3>轻型坦克"疾风"</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="lightTankGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#48bb78;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2f855a;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 履带（更小更快） -->
+                    <rect x="80" y="145" width="160" height="25" rx="12" fill="#1a202c" filter="url(#shadow)"/>
+                    
+                    <!-- 车体（流线型） -->
+                    <path d="M 85 120 L 235 120 L 245 140 L 240 150 L 80 150 L 75 140 Z" 
+                          fill="url(#lightTankGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 炮塔（紧凑型） -->
+                    <ellipse cx="160" cy="110" rx="45" ry="25" fill="url(#lightTankGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 速射炮 -->
+                    <rect x="180" y="105" width="70" height="10" rx="2" fill="#2f855a"/>
+                    <rect x="245" y="107" width="15" height="6" rx="1" fill="#1a202c"/>
+                    
+                    <!-- 烟雾发射器 -->
+                    <g id="smoke-launchers">
+                        <circle cx="130" cy="100" r="4" fill="#4a5568"/>
+                        <circle cx="140" cy="100" r="4" fill="#4a5568"/>
+                        <circle cx="150" cy="100" r="4" fill="#4a5568"/>
+                    </g>
+                    
+                    <!-- 速度线条装饰 -->
+                    <line x1="70" y1="130" x2="50" y2="130" stroke="#48bb78" stroke-width="3" opacity="0.6"/>
+                    <line x1="70" y1="140" x2="45" y2="140" stroke="#48bb78" stroke-width="3" opacity="0.4"/>
+                    
+                    <!-- 探照灯 -->
+                    <ellipse cx="190" cy="100" rx="8" ry="6" fill="#fbbf24"/>
+                </svg>
+            </div>
+            
+            <!-- 火焰坦克"炽焰" -->
+            <div class="unit-card">
+                <h3>火焰坦克"炽焰"</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="flameTankGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#f56565;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#c53030;stop-opacity:1" />
+                        </linearGradient>
+                        <radialGradient id="flameGrad">
+                            <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+                        </radialGradient>
+                    </defs>
+                    
+                    <!-- 履带 -->
+                    <rect x="70" y="140" width="180" height="30" rx="15" fill="#1a202c" filter="url(#shadow)"/>
+                    
+                    <!-- 车体 -->
+                    <rect x="75" y="95" width="170" height="55" rx="5" fill="url(#flameTankGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 隔热装甲 -->
+                    <rect x="70" y="105" width="180" height="3" fill="#fbbf24" opacity="0.7"/>
+                    <rect x="70" y="115" width="180" height="3" fill="#fbbf24" opacity="0.7"/>
+                    <rect x="70" y="125" width="180" height="3" fill="#fbbf24" opacity="0.7"/>
+                    
+                    <!-- 炮塔 -->
+                    <ellipse cx="160" cy="95" rx="55" ry="30" fill="url(#flameTankGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 火焰喷射器 -->
+                    <rect x="185" y="88" width="80" height="14" rx="2" fill="#c53030"/>
+                    <polygon points="265,88 275,82 285,88 285,102 275,108 265,102" fill="#1a202c"/>
+                    
+                    <!-- 火焰效果 -->
+                    <ellipse cx="295" cy="95" rx="20" ry="15" fill="url(#flameGrad)" opacity="0.8"/>
+                    <ellipse cx="305" cy="95" rx="15" ry="12" fill="#fbbf24" opacity="0.6"/>
+                    
+                    <!-- 燃料箱 -->
+                    <rect x="85" y="85" width="25" height="20" rx="3" fill="#7c3aed"/>
+                    <rect x="115" y="85" width="25" height="20" rx="3" fill="#7c3aed"/>
+                    
+                    <!-- 警告标志 -->
+                    <g transform="translate(160,75)">
+                        <polygon points="0,-10 10,5 -10,5" fill="#fbbf24" stroke="#1a202c" stroke-width="1"/>
+                        <text x="0" y="3" text-anchor="middle" font-size="10" font-weight="bold">!</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- 榴弹炮"震撼" -->
+            <div class="unit-card">
+                <h3>榴弹炮"震撼"</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="artilleryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#9f7aea;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#6b46c1;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 支架底座 -->
+                    <polygon points="100,170 120,130 200,130 220,170" fill="#2d3748" filter="url(#shadow)"/>
+                    <rect x="95" y="165" width="130" height="10" rx="2" fill="#1a202c"/>
+                    
+                    <!-- 液压支撑 -->
+                    <rect x="110" y="130" width="8" height="40" fill="#4a5568"/>
+                    <rect x="202" y="130" width="8" height="40" fill="#4a5568"/>
+                    
+                    <!-- 回转平台 -->
+                    <ellipse cx="160" cy="130" rx="50" ry="15" fill="url(#artilleryGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 主炮身 -->
+                    <g transform="rotate(-20 160 120)">
+                        <rect x="160" y="115" width="120" height="18" rx="2" fill="url(#artilleryGrad)"/>
+                        <rect x="275" y="117" width="25" height="14" rx="1" fill="#2d3748"/>
+                        
+                        <!-- 制退器 -->
+                        <rect x="150" y="119" width="25" height="10" rx="2" fill="#4a5568"/>
+                    </g>
+                    
+                    <!-- 防护盾 -->
+                    <path d="M 120 110 L 120 130 L 140 135 L 180 135 L 200 130 L 200 110 Z" 
+                          fill="#6b46c1" stroke="#4a5568" stroke-width="2"/>
+                    
+                    <!-- 瞄准装置 -->
+                    <rect x="155" y="105" width="10" height="15" rx="1" fill="#38b2ac" opacity="0.8"/>
+                    
+                    <!-- 弹药箱 -->
+                    <rect x="125" y="135" width="20" height="15" rx="2" fill="#4a5568"/>
+                    <rect x="175" y="135" width="20" height="15" rx="2" fill="#4a5568"/>
+                </svg>
+            </div>
+            
+            <!-- 激光炮"光辉" -->
+            <div class="unit-card">
+                <h3>激光炮"光辉"</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="laserGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#3730a3;stop-opacity:1" />
+                        </linearGradient>
+                        <radialGradient id="energyCore">
+                            <stop offset="0%" style="stop-color:#dbeafe;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#60a5fa;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+                        </radialGradient>
+                    </defs>
+                    
+                    <!-- 能量基座 -->
+                    <ellipse cx="160" cy="165" rx="70" ry="20" fill="#1a202c" filter="url(#shadow)"/>
+                    
+                    <!-- 支撑柱 -->
+                    <rect x="155" y="130" width="10" height="40" fill="#4a5568"/>
+                    
+                    <!-- 旋转平台 -->
+                    <ellipse cx="160" cy="130" rx="45" ry="12" fill="url(#laserGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 激光发射器主体 -->
+                    <g transform="rotate(-15 160 115)">
+                        <!-- 聚焦晶体舱 -->
+                        <rect x="130" y="105" width="30" height="25" rx="3" fill="url(#laserGrad)"/>
+                        
+                        <!-- 激光管 -->
+                        <rect x="160" y="110" width="100" height="15" rx="2" fill="#1e40af"/>
+                        <rect x="165" y="113" width="90" height="9" rx="1" fill="#60a5fa" opacity="0.7"/>
+                        
+                        <!-- 发射口 -->
+                        <polygon points="260,110 270,105 280,110 280,125 270,130 260,125" fill="#dbeafe"/>
+                        
+                        <!-- 激光束 -->
+                        <line x1="280" y1="117" x2="320" y2="117" stroke="#60a5fa" stroke-width="3" opacity="0.8"/>
+                        <line x1="280" y1="117" x2="320" y2="117" stroke="#dbeafe" stroke-width="1"/>
+                    </g>
+                    
+                    <!-- 能量核心 -->
+                    <circle cx="160" cy="117" r="15" fill="url(#energyCore)" opacity="0.9"/>
+                    <circle cx="160" cy="117" r="8" fill="#dbeafe" opacity="0.8"/>
+                    
+                    <!-- 冷却片 -->
+                    <rect x="135" y="95" width="3" height="20" fill="#4a5568"/>
+                    <rect x="140" y="95" width="3" height="20" fill="#4a5568"/>
+                    <rect x="177" y="95" width="3" height="20" fill="#4a5568"/>
+                    <rect x="182" y="95" width="3" height="20" fill="#4a5568"/>
+                </svg>
+            </div>
+            
+            <!-- 电磁炮"闪电" -->
+            <div class="unit-card">
+                <h3>电磁炮"闪电"</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="railgunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="electric">
+                            <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2"/>
+                            <feColorMatrix values="0 0 0 0 1
+                                                 0 0 0 0 1
+                                                 0 0 0 0 0
+                                                 0 0 0 1 0"/>
+                        </filter>
+                    </defs>
+                    
+                    <!-- 重型基座 -->
+                    <rect x="90" y="160" width="140" height="20" rx="5" fill="#1a202c" filter="url(#shadow)"/>
+                    
+                    <!-- 电容器组 -->
+                    <g id="capacitors">
+                        <cylinder cx="100" cy="140" r="12" height="25" fill="#fbbf24"/>
+                        <cylinder cx="120" cy="140" r="12" height="25" fill="#fbbf24"/>
+                        <cylinder cx="200" cy="140" r="12" height="25" fill="#fbbf24"/>
+                        <cylinder cx="220" cy="140" r="12" height="25" fill="#fbbf24"/>
+                    </g>
+                    
+                    <!-- 主炮架 -->
+                    <rect x="130" y="125" width="60" height="40" rx="5" fill="url(#railgunGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 电磁轨道 -->
+                    <g transform="rotate(-10 160 110)">
+                        <!-- 上轨道 -->
+                        <rect x="160" y="100" width="130" height="8" fill="#d97706"/>
+                        <!-- 下轨道 -->
+                        <rect x="160" y="112" width="130" height="8" fill="#d97706"/>
+                        
+                        <!-- 电弧效果 -->
+                        <path d="M 165 104 Q 200 108, 235 104" stroke="#fbbf24" stroke-width="2" fill="none" opacity="0.8"/>
+                        <path d="M 165 116 Q 200 112, 235 116" stroke="#fbbf24" stroke-width="2" fill="none" opacity="0.8"/>
+                        
+                        <!-- 发射器头部 -->
+                        <rect x="285" y="102" width="15" height="16" rx="2" fill="#1a202c"/>
+                    </g>
+                    
+                    <!-- 充能指示灯 -->
+                    <circle cx="145" cy="135" r="5" fill="#10b981">
+                        <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="160" cy="135" r="5" fill="#10b981">
+                        <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="175" cy="135" r="5" fill="#10b981">
+                        <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" begin="1s" repeatCount="indefinite"/>
+                    </circle>
+                    
+                    <!-- 电流效果 -->
+                    <g opacity="0.6">
+                        <path d="M 100 140 L 105 130 L 95 120 L 100 110" stroke="#fbbf24" stroke-width="2" fill="none"/>
+                        <path d="M 220 140 L 225 130 L 215 120 L 220 110" stroke="#fbbf24" stroke-width="2" fill="none"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+        
+        <h2>空军单位</h2>
+        <div class="units-grid">
+            
+            <!-- 战斗机"鹰眼" -->
+            <div class="unit-card">
+                <h3>战斗机"鹰眼"</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="fighterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#e0e7ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#818cf8;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 机身 -->
+                    <ellipse cx="160" cy="100" rx="80" ry="20" fill="url(#fighterGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 机头 -->
+                    <path d="M 80 100 Q 60 100, 50 95 L 50 105 Q 60 100, 80 100" fill="#6366f1"/>
+                    
+                    <!-- 主翼 -->
+                    <polygon points="140,85 100,60 110,65 140,95" fill="#818cf8"/>
+                    <polygon points="140,115 100,140 110,135 140,105" fill="#818cf8"/>
+                    <polygon points="180,85 220,60 210,65 180,95" fill="#818cf8"/>
+                    <polygon points="180,115 220,140 210,135 180,105" fill="#818cf8"/>
+                    
+                    <!-- 尾翼 -->
+                    <polygon points="230,100 250,85 245,95 235,95" fill="#6366f1"/>
+                    <polygon points="230,100 250,115 245,105 235,105" fill="#6366f1"/>
+                    
+                    <!-- 座舱 -->
+                    <ellipse cx="120" cy="100" rx="20" ry="10" fill="#1e293b" opacity="0.8"/>
+                    <ellipse cx="120" cy="100" rx="18" ry="8" fill="#38bdf8" opacity="0.6"/>
+                    
+                    <!-- 导弹 -->
+                    <rect x="105" y="68" width="15" height="4" rx="1" fill="#ef4444"/>
+                    <rect x="105" y="128" width="15" height="4" rx="1" fill="#ef4444"/>
+                    <rect x="200" y="68" width="15" height="4" rx="1" fill="#ef4444"/>
+                    <rect x="200" y="128" width="15" height="4" rx="1" fill="#ef4444"/>
+                    
+                    <!-- 引擎喷口 -->
+                    <ellipse cx="240" cy="100" rx="8" ry="12" fill="#1e293b"/>
+                    <ellipse cx="240" cy="100" rx="6" ry="10" fill="#f59e0b" opacity="0.8">
+                        <animate attributeName="opacity" values="0.4;0.9;0.4" dur="0.5s" repeatCount="indefinite"/>
+                    </ellipse>
+                </svg>
+            </div>
+            
+            <!-- 轰炸机"雷鸣" -->
+            <div class="unit-card">
+                <h3>轰炸机"雷鸣"</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="bomberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#374151;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#111827;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 主机身 -->
+                    <ellipse cx="160" cy="100" rx="100" ry="30" fill="url(#bomberGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 机翼 -->
+                    <polygon points="120,80 50,50 60,60 120,90" fill="#1f2937"/>
+                    <polygon points="120,120 50,150 60,140 120,110" fill="#1f2937"/>
+                    <polygon points="200,80 270,50 260,60 200,90" fill="#1f2937"/>
+                    <polygon points="200,120 270,150 260,140 200,110" fill="#1f2937"/>
+                    
+                    <!-- 引擎舱 -->
+                    <ellipse cx="90" cy="85" rx="15" ry="8" fill="#374151"/>
+                    <ellipse cx="90" cy="115" rx="15" ry="8" fill="#374151"/>
+                    <ellipse cx="230" cy="85" rx="15" ry="8" fill="#374151"/>
+                    <ellipse cx="230" cy="115" rx="15" ry="8" fill="#374151"/>
+                    
+                    <!-- 弹舱 -->
+                    <rect x="130" y="105" width="60" height="15" rx="2" fill="#1f2937" stroke="#6b7280" stroke-width="1"/>
+                    
+                    <!-- 炸弹 -->
+                    <ellipse cx="140" cy="115" rx="4" ry="8" fill="#dc2626"/>
+                    <ellipse cx="150" cy="115" rx="4" ry="8" fill="#dc2626"/>
+                    <ellipse cx="160" cy="115" rx="4" ry="8" fill="#dc2626"/>
+                    <ellipse cx="170" cy="115" rx="4" ry="8" fill="#dc2626"/>
+                    <ellipse cx="180" cy="115" rx="4" ry="8" fill="#dc2626"/>
+                    
+                    <!-- 座舱 -->
+                    <ellipse cx="100" cy="95" rx="15" ry="8" fill="#1e293b" opacity="0.9"/>
+                    <ellipse cx="100" cy="95" rx="12" ry="6" fill="#0ea5e9" opacity="0.5"/>
+                    
+                    <!-- 尾翼 -->
+                    <polygon points="250,100 270,80 265,90 255,95" fill="#374151"/>
+                    <polygon points="250,100 270,120 265,110 255,105" fill="#374151"/>
+                    
+                    <!-- 尾炮塔 -->
+                    <circle cx="255" cy="100" r="8" fill="#4b5563"/>
+                    <rect x="255" y="98" width="20" height="4" rx="1" fill="#6b7280"/>
+                </svg>
+            </div>
+            
+            <!-- 侦察机"幽灵" -->
+            <div class="unit-card">
+                <h3>侦察机"幽灵"</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="stealthGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#1f2937;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#030712;stop-opacity:0.9" />
+                        </linearGradient>
+                        <pattern id="camo" patternUnits="userSpaceOnUse" width="20" height="20">
+                            <rect width="10" height="10" fill="#1f2937"/>
+                            <rect x="10" width="10" height="10" fill="#374151"/>
+                            <rect y="10" width="10" height="10" fill="#374151"/>
+                            <rect x="10" y="10" width="10" height="10" fill="#1f2937"/>
+                        </pattern>
+                    </defs>
+                    
+                    <!-- 隐形机身 -->
+                    <polygon points="60,100 160,80 260,100 160,120" fill="url(#stealthGrad)" filter="url(#shadow)" opacity="0.8"/>
+                    
+                    <!-- 三角翼 -->
+                    <polygon points="100,100 60,70 80,80 120,95" fill="url(#camo)" opacity="0.7"/>
+                    <polygon points="100,100 60,130 80,120 120,105" fill="url(#camo)" opacity="0.7"/>
+                    <polygon points="220,100 260,70 240,80 200,95" fill="url(#camo)" opacity="0.7"/>
+                    <polygon points="220,100 260,130 240,120 200,105" fill="url(#camo)" opacity="0.7"/>
+                    
+                    <!-- 座舱（低可视） -->
+                    <polygon points="120,95 140,92 140,108 120,105" fill="#030712" opacity="0.9"/>
+                    
+                    <!-- 传感器阵列 -->
+                    <circle cx="80" cy="100" r="6" fill="#06b6d4" opacity="0.4"/>
+                    <circle cx="100" cy="95" r="4" fill="#06b6d4" opacity="0.4"/>
+                    <circle cx="100" cy="105" r="4" fill="#06b6d4" opacity="0.4"/>
+                    
+                    <!-- 隐形涂层效果 -->
+                    <g opacity="0.3">
+                        <polygon points="60,100 160,80 260,100 160,120" fill="none" stroke="#06b6d4" stroke-width="1" stroke-dasharray="5,5">
+                            <animate attributeName="stroke-dashoffset" from="0" to="10" dur="2s" repeatCount="indefinite"/>
+                        </polygon>
+                    </g>
+                    
+                    <!-- 引擎（低热特征） -->
+                    <ellipse cx="250" cy="100" rx="6" ry="8" fill="#030712" opacity="0.8"/>
+                </svg>
+            </div>
+        </div>
+        
+        <h2>海军单位</h2>
+        <div class="units-grid">
+            
+            <!-- 战列舰"海王" -->
+            <div class="unit-card">
+                <h3>战列舰"海王"（配备磁轨炮）</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="battleshipGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#64748b;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#334155;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="seaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#0ea5e9;stop-opacity:0.6" />
+                            <stop offset="100%" style="stop-color:#0369a1;stop-opacity:0.8" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 海浪 -->
+                    <path d="M 0 140 Q 50 130, 100 140 T 200 140 T 300 140 L 320 140 L 320 200 L 0 200 Z" 
+                          fill="url(#seaGrad)"/>
+                    
+                    <!-- 船体 -->
+                    <path d="M 40 130 L 280 130 L 270 150 L 50 150 Z" fill="url(#battleshipGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 上层建筑 -->
+                    <rect x="80" y="100" width="160" height="30" rx="3" fill="#475569"/>
+                    <rect x="100" y="85" width="120" height="15" rx="2" fill="#64748b"/>
+                    
+                    <!-- 磁轨炮塔 -->
+                    <g id="railgun-turret">
+                        <ellipse cx="120" cy="85" rx="20" ry="12" fill="#334155"/>
+                        <rect x="120" y="78" width="60" height="6" fill="#1e293b"/>
+                        <rect x="120" y="86" width="60" height="6" fill="#1e293b"/>
+                    </g>
+                    <g id="railgun-turret2">
+                        <ellipse cx="200" cy="85" rx="20" ry="12" fill="#334155"/>
+                        <rect x="200" y="78" width="60" height="6" fill="#1e293b"/>
+                        <rect x="200" y="86" width="60" height="6" fill="#1e293b"/>
+                    </g>
+                    
+                    <!-- 指挥塔 -->
+                    <rect x="150" y="60" width="20" height="25" rx="2" fill="#64748b"/>
+                    <rect x="155" y="55" width="10" height="5" fill="#475569"/>
+                    
+                    <!-- 雷达 -->
+                    <circle cx="160" cy="50" r="8" fill="#0ea5e9" opacity="0.6"/>
+                    <line x1="160" y1="50" x2="160" y2="42" stroke="#1e293b" stroke-width="2"/>
+                    
+                    <!-- 防空武器 -->
+                    <circle cx="90" cy="95" r="5" fill="#6b7280"/>
+                    <circle cx="230" cy="95" r="5" fill="#6b7280"/>
+                    
+                    <!-- 舷窗 -->
+                    <g id="windows">
+                        <rect x="90" y="110" width="8" height="8" rx="1" fill="#38bdf8" opacity="0.6"/>
+                        <rect x="105" y="110" width="8" height="8" rx="1" fill="#38bdf8" opacity="0.6"/>
+                        <rect x="120" y="110" width="8" height="8" rx="1" fill="#38bdf8" opacity="0.6"/>
+                        <rect x="135" y="110" width="8" height="8" rx="1" fill="#38bdf8" opacity="0.6"/>
+                        <rect x="150" y="110" width="8" height="8" rx="1" fill="#38bdf8" opacity="0.6"/>
+                        <rect x="165" y="110" width="8" height="8" rx="1" fill="#38bdf8" opacity="0.6"/>
+                        <rect x="180" y="110" width="8" height="8" rx="1" fill="#38bdf8" opacity="0.6"/>
+                        <rect x="195" y="110" width="8" height="8" rx="1" fill="#38bdf8" opacity="0.6"/>
+                        <rect x="210" y="110" width="8" height="8" rx="1" fill="#38bdf8" opacity="0.6"/>
+                        <rect x="225" y="110" width="8" height="8" rx="1" fill="#38bdf8" opacity="0.6"/>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- 潜艇"深渊" -->
+            <div class="unit-card">
+                <h3>潜艇"深渊"（搭载鱼雷蜂群）</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="subGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 水下环境 -->
+                    <rect x="0" y="0" width="320" height="200" fill="#0369a1" opacity="0.3"/>
+                    
+                    <!-- 潜艇主体 -->
+                    <ellipse cx="160" cy="100" rx="100" ry="25" fill="url(#subGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 指挥塔 -->
+                    <rect x="140" y="75" width="40" height="25" rx="5" fill="#334155"/>
+                    <rect x="155" y="65" width="10" height="15" rx="2" fill="#475569"/>
+                    
+                    <!-- 潜望镜 -->
+                    <rect x="159" y="55" width="2" height="15" fill="#64748b"/>
+                    <circle cx="160" cy="55" r="3" fill="#0ea5e9"/>
+                    
+                    <!-- 鱼雷发射管 -->
+                    <g id="torpedo-tubes">
+                        <circle cx="65" cy="95" r="6" fill="#0f172a"/>
+                        <circle cx="65" cy="105" r="6" fill="#0f172a"/>
+                        <circle cx="75" cy="100" r="6" fill="#0f172a"/>
+                    </g>
+                    
+                    <!-- 螺旋桨 -->
+                    <g transform="translate(255,100)">
+                        <ellipse cx="0" cy="0" rx="3" ry="15" fill="#475569" transform="rotate(0)">
+                            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="0.5s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="0" cy="0" rx="3" ry="15" fill="#475569" transform="rotate(60)">
+                            <animateTransform attributeName="transform" type="rotate" from="60" to="420" dur="0.5s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="0" cy="0" rx="3" ry="15" fill="#475569" transform="rotate(120)">
+                            <animateTransform attributeName="transform" type="rotate" from="120" to="480" dur="0.5s" repeatCount="indefinite"/>
+                        </ellipse>
+                    </g>
+                    
+                    <!-- 声纳波 -->
+                    <g opacity="0.4">
+                        <circle cx="80" cy="100" r="20" fill="none" stroke="#06b6d4" stroke-width="2" opacity="0">
+                            <animate attributeName="r" from="20" to="60" dur="3s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="1" to="0" dur="3s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                    
+                    <!-- 鱼雷 -->
+                    <g id="torpedoes">
+                        <ellipse cx="45" cy="95" rx="12" ry="3" fill="#dc2626"/>
+                        <ellipse cx="45" cy="105" rx="12" ry="3" fill="#dc2626"/>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- 气垫登陆艇"突袭" -->
+            <div class="unit-card">
+                <h3>气垫登陆艇"突袭"</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="hovercraftGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 气垫 -->
+                    <ellipse cx="160" cy="145" rx="110" ry="35" fill="#1e293b" opacity="0.6" filter="url(#shadow)"/>
+                    
+                    <!-- 气流效果 -->
+                    <g opacity="0.5">
+                        <ellipse cx="160" cy="145" rx="115" ry="38" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="5,5">
+                            <animate attributeName="stroke-dashoffset" from="0" to="10" dur="1s" repeatCount="indefinite"/>
+                        </ellipse>
+                    </g>
+                    
+                    <!-- 主船体 -->
+                    <rect x="70" y="90" width="180" height="60" rx="10" fill="url(#hovercraftGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 装载舱门 -->
+                    <rect x="75" y="110" width="60" height="35" rx="3" fill="#047857" stroke="#065f46" stroke-width="2"/>
+                    
+                    <!-- 驾驶舱 -->
+                    <rect x="200" y="95" width="45" height="30" rx="5" fill="#059669"/>
+                    <rect x="205" y="100" width="35" height="15" rx="2" fill="#38bdf8" opacity="0.7"/>
+                    
+                    <!-- 推进风扇 -->
+                    <g transform="translate(245,110)">
+                        <circle cx="0" cy="0" r="20" fill="#1e293b" opacity="0.5"/>
+                        <g transform="rotate(0)">
+                            <rect x="-2" y="-18" width="4" height="36" rx="1" fill="#475569">
+                                <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="0.2s" repeatCount="indefinite"/>
+                            </rect>
+                            <rect x="-18" y="-2" width="36" height="4" rx="1" fill="#475569">
+                                <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="0.2s" repeatCount="indefinite"/>
+                            </rect>
+                        </g>
+                    </g>
+                    
+                    <!-- 武器系统 -->
+                    <rect x="150" y="85" width="30" height="8" rx="1" fill="#6b7280"/>
+                    <circle cx="165" cy="85" r="5" fill="#4b5563"/>
+                    
+                    <!-- 天线阵列 -->
+                    <line x1="190" y1="90" x2="190" y2="70" stroke="#475569" stroke-width="2"/>
+                    <line x1="210" y1="90" x2="210" y2="75" stroke="#475569" stroke-width="2"/>
+                    
+                    <!-- 装甲板 -->
+                    <rect x="70" y="105" width="180" height="3" fill="#065f46" opacity="0.7"/>
+                    <rect x="70" y="115" width="180" height="3" fill="#065f46" opacity="0.7"/>
+                </svg>
+            </div>
+        </div>
+        
+        <h2>支援单位</h2>
+        <div class="units-grid">
+            
+            <!-- 太阳能收集器 -->
+            <div class="unit-card">
+                <h3>量子太阳能收集器</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="solarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+                        </linearGradient>
+                        <radialGradient id="sunGrad">
+                            <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
+                        </radialGradient>
+                    </defs>
+                    
+                    <!-- 底座 -->
+                    <rect x="140" y="160" width="40" height="20" rx="3" fill="#4b5563"/>
+                    
+                    <!-- 支撑杆 -->
+                    <rect x="155" y="120" width="10" height="45" fill="#6b7280"/>
+                    
+                    <!-- 太阳能板 -->
+                    <g transform="rotate(-15 160 100)">
+                        <rect x="100" y="80" width="120" height="40" rx="3" fill="url(#solarGrad)" filter="url(#shadow)"/>
+                        
+                        <!-- 光伏单元格 -->
+                        <g id="solar-cells">
+                            <rect x="105" y="85" width="25" height="12" fill="#b45309" opacity="0.3"/>
+                            <rect x="135" y="85" width="25" height="12" fill="#b45309" opacity="0.3"/>
+                            <rect x="165" y="85" width="25" height="12" fill="#b45309" opacity="0.3"/>
+                            <rect x="195" y="85" width="25" height="12" fill="#b45309" opacity="0.3"/>
+                            
+                            <rect x="105" y="103" width="25" height="12" fill="#b45309" opacity="0.3"/>
+                            <rect x="135" y="103" width="25" height="12" fill="#b45309" opacity="0.3"/>
+                            <rect x="165" y="103" width="25" height="12" fill="#b45309" opacity="0.3"/>
+                            <rect x="195" y="103" width="25" height="12" fill="#b45309" opacity="0.3"/>
+                        </g>
+                    </g>
+                    
+                    <!-- 能量核心 -->
+                    <circle cx="160" cy="140" r="12" fill="url(#sunGrad)" filter="url(#shadow)">
+                        <animate attributeName="r" values="12;15;12" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    
+                    <!-- 阳光收集效果 -->
+                    <g opacity="0.6">
+                        <line x1="40" y1="30" x2="140" y2="90" stroke="#fbbf24" stroke-width="2"/>
+                        <line x1="80" y1="20" x2="160" y2="85" stroke="#fbbf24" stroke-width="2"/>
+                        <line x1="120" y1="15" x2="180" y2="85" stroke="#fbbf24" stroke-width="2"/>
+                    </g>
+                    
+                    <!-- 能量输出指示 -->
+                    <text x="160" y="195" text-anchor="middle" fill="#10b981" font-size="12" font-weight="bold">+60能量/4秒</text>
+                </svg>
+            </div>
+            
+            <!-- 能量储存站 -->
+            <div class="unit-card">
+                <h3>大型核心能源库</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <radialGradient id="energyCoreGrad">
+                            <stop offset="0%" style="stop-color:#a78bfa;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#7c3aed;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#4c1d95;stop-opacity:1" />
+                        </radialGradient>
+                    </defs>
+                    
+                    <!-- 基础平台 -->
+                    <rect x="60" y="150" width="200" height="30" rx="5" fill="#374151" filter="url(#shadow)"/>
+                    
+                    <!-- 储能柱 -->
+                    <g id="energy-columns">
+                        <rect x="80" y="60" width="30" height="90" rx="3" fill="#6b46c1" opacity="0.8"/>
+                        <rect x="85" y="65" width="20" height="80" rx="2" fill="#a78bfa" opacity="0.6">
+                            <animate attributeName="height" values="80;60;80" dur="3s" repeatCount="indefinite"/>
+                        </rect>
+                        
+                        <rect x="120" y="60" width="30" height="90" rx="3" fill="#6b46c1" opacity="0.8"/>
+                        <rect x="125" y="65" width="20" height="80" rx="2" fill="#a78bfa" opacity="0.6">
+                            <animate attributeName="height" values="80;70;80" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+                        </rect>
+                        
+                        <rect x="170" y="60" width="30" height="90" rx="3" fill="#6b46c1" opacity="0.8"/>
+                        <rect x="175" y="65" width="20" height="80" rx="2" fill="#a78bfa" opacity="0.6">
+                            <animate attributeName="height" values="80;65;80" dur="3s" begin="1s" repeatCount="indefinite"/>
+                        </rect>
+                        
+                        <rect x="210" y="60" width="30" height="90" rx="3" fill="#6b46c1" opacity="0.8"/>
+                        <rect x="215" y="65" width="20" height="80" rx="2" fill="#a78bfa" opacity="0.6">
+                            <animate attributeName="height" values="80;75;80" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+                        </rect>
+                    </g>
+                    
+                    <!-- 中央核心 -->
+                    <circle cx="160" cy="105" r="25" fill="url(#energyCoreGrad)" filter="url(#shadow)"/>
+                    <circle cx="160" cy="105" r="18" fill="#c4b5fd" opacity="0.7">
+                        <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    
+                    <!-- 能量连接线 -->
+                    <g stroke="#a78bfa" stroke-width="2" fill="none" opacity="0.6">
+                        <path d="M 95 105 L 135 105"/>
+                        <path d="M 185 105 L 225 105"/>
+                        <path d="M 160 80 L 160 130"/>
+                    </g>
+                    
+                    <!-- 容量指示 -->
+                    <text x="160" y="195" text-anchor="middle" fill="#a78bfa" font-size="12" font-weight="bold">存储: 1000能量</text>
+                </svg>
+            </div>
+            
+            <!-- 维修无人机 -->
+            <div class="unit-card">
+                <h3>纳米维修无人机</h3>
+                <svg width="320" height="200" viewBox="0 0 320 200">
+                    <defs>
+                        <linearGradient id="droneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#047857;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- 机体 -->
+                    <ellipse cx="160" cy="100" rx="30" ry="20" fill="url(#droneGrad)" filter="url(#shadow)"/>
+                    
+                    <!-- 螺旋桨臂 -->
+                    <line x1="130" y1="100" x2="100" y2="80" stroke="#047857" stroke-width="3"/>
+                    <line x1="190" y1="100" x2="220" y2="80" stroke="#047857" stroke-width="3"/>
+                    <line x1="130" y1="100" x2="100" y2="120" stroke="#047857" stroke-width="3"/>
+                    <line x1="190" y1="100" x2="220" y2="120" stroke="#047857" stroke-width="3"/>
+                    
+                    <!-- 螺旋桨 -->
+                    <g id="propeller1" transform="translate(100,80)">
+                        <ellipse cx="0" cy="0" rx="15" ry="3" fill="#34d399" opacity="0.8">
+                            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="0.1s" repeatCount="indefinite"/>
+                        </ellipse>
+                    </g>
+                    <g id="propeller2" transform="translate(220,80)">
+                        <ellipse cx="0" cy="0" rx="15" ry="3" fill="#34d399" opacity="0.8">
+                            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="0.1s" repeatCount="indefinite"/>
+                        </ellipse>
+                    </g>
+                    <g id="propeller3" transform="translate(100,120)">
+                        <ellipse cx="0" cy="0" rx="15" ry="3" fill="#34d399" opacity="0.8">
+                            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="0.1s" repeatCount="indefinite"/>
+                        </ellipse>
+                    </g>
+                    <g id="propeller4" transform="translate(220,120)">
+                        <ellipse cx="0" cy="0" rx="15" ry="3" fill="#34d399" opacity="0.8">
+                            <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="0.1s" repeatCount="indefinite"/>
+                        </ellipse>
+                    </g>
+                    
+                    <!-- 维修臂 -->
+                    <rect x="155" y="115" width="10" height="20" rx="2" fill="#047857"/>
+                    <circle cx="160" cy="138" r="5" fill="#10b981"/>
+                    
+                    <!-- 纳米喷雾效果 -->
+                    <g opacity="0.6">
+                        <circle cx="160" cy="145" r="3" fill="#34d399">
+                            <animate attributeName="r" from="3" to="15" dur="1s" repeatCount="indefinite"/>
+                            <animate attributeName="opacity" from="1" to="0" dur="1s" repeatCount="indefinite"/>
+                        </circle>
+                    </g>
+                    
+                    <!-- 传感器 -->
+                    <circle cx="160" cy="95" r="5" fill="#ef4444" opacity="0.8">
+                        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
